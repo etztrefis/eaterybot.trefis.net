@@ -1,24 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css"
+import { Circle2 } from 'react-preloaders';
+import PreHeader from './PreHeader/PreHeader';
+import NavBar from "./Nav/Nav.js";
+import Body from "./Body/First/First.js";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="App">
+        <PreHeader />
+        <NavBar />
+        <Body />
+      </div>
+      <Circle2
+        background="linear-gradient(to right bottom, #6509e2 40%, #5a02b4 70%)"
+        time={2000}
+        animation="slide-left"
+        color="yellow"
+      />
     </div>
   );
 }
