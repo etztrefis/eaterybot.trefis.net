@@ -27,7 +27,8 @@ export default class ProgressBar extends Component {
 
     render() {
         const progressWrapper = {
-            background: "#343a40",
+            backdropFilter: "blur(5px)",
+            backgroundColor: "#0001",
             height: "5px",
             zIndex: 101,
             width: "100%"
@@ -40,7 +41,7 @@ export default class ProgressBar extends Component {
         };
 
         return (
-            <div className="progress-bar" style={progressWrapper}>
+            <div className="progress-bar" style={progressWrapper} >
                 <div style={progressStyle} />
             </div>
         )
