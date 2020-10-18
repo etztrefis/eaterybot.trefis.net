@@ -1,24 +1,22 @@
 import React from 'react';
 import "./App.css"
-import { Circle2 } from 'react-preloaders';
-import PreHeader from './PreHeader/PreHeader';
+//import { Circle2 } from 'react-preloaders';
 import NavBar from "./Nav/Nav.js";
-import Body from "./Body/First/First.js";
+import Body from "./Body/Body.js";
 
 function App() {
   return (
     <div>
       <div className="App">
-        <PreHeader />
         <NavBar />
         <Body />
       </div>
-      <Circle2
+      {/* <Circle2
         background="linear-gradient(to right bottom, #6509e2 40%, #5a02b4 70%)"
         time={2000}
         animation="slide-left"
         color="yellow"
-      />
+      /> */}
     </div>
   );
 }
