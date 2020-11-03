@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 import "./Nav.css";
 
 function NavBar() {
@@ -22,7 +23,7 @@ function NavBar() {
           Eatery Bot
         </Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
+          <AnchorLink href='#home' style={{ textDecoration: "none" }}><Nav.Link>Home</Nav.Link></AnchorLink>
           <Nav.Link href="#features">Features</Nav.Link>
           <Nav.Link href="#pricing">Pricing</Nav.Link>
         </Nav>
