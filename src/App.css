@@ -1,3 +1,4 @@
 body {
     background: linear-gradient(to right bottom, #6509e2 40%, #5a02b4 70%);
+    overflow-x: hidden;
 }
