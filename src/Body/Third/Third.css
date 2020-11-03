@@ -5,40 +5,12 @@
     position: relative;
 }
 
-.left-side {
-    height: 100%;
-    width: 50%;
-    background-color: yellow;
-    float: left;
-}
-
-.right-side {
-    float: right;
-    height: 50%;
-    width: 50%;
-}
-
 .right-side-content {
-    position: absolute;
+    text-align: center;
 }
 
-.left-side-content {
-    position: absolute;
-}
-
-.inside-box-content {}
-
-.left-main-box {
-    position: absolute;
-    background-color: purple;
-    height: 100%;
-    width: 50%;
-}
-
-.right-main-box {
-    position: absolute;
-    background-color: black;
-    height: 100%;
-    width: 50%;
-    float: right;
+.inside-box-content {
+    margin: 10px;
+    background-color: aqua;
+    text-align: center;
 }
