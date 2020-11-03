@@ -5,7 +5,6 @@
   background: linear-gradient(to right bottom, #6509e2 40%, #5a02b4 70%);
 }
 
-
 .focus-in-expand {
   font-size: 20px;
   color: antiquewhite;
@@ -23,7 +22,6 @@
   box-shadow: 0px 10px 15px 1px rgba(65, 64, 64, 0.548);
   position: absolute;
   top: 200px;
-  left: 150px;
   animation-name: bounce-2;
   animation-timing-function: ease;
   animation-duration: 20s;

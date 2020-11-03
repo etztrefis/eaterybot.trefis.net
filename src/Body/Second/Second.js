@@ -6,7 +6,7 @@ import "./Second.css";
 
 function Second() {
     return (
-        <Container fluid>
+        <Container fluid style={{ backgroundColor: "white" }}>
             <Row>
                 <Col>
                     <div className="second-main">
@@ -17,7 +17,7 @@ function Second() {
                     </div >
                 </Col>
             </Row>
-        </Container>
+        </Container >
     );
 }
 

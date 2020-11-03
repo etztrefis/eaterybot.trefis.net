@@ -19,10 +19,3 @@
 .text-main-div {
     text-align: center;
 }
-
-.container-fluid {
-    padding-right: 0;
-    padding-left: 0;
-    margin-right: auto;
-    margin-left: auto
-}
