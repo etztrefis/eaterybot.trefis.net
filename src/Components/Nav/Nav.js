@@ -32,7 +32,7 @@ function NavBar() {
             <Nav.Link target='_blank' href="https://github.com/etztrefis/eaterybot.trefis.net">GitHub</Nav.Link>
             <Nav.Link target='_blank' href="https://vk.com/eaterybot">VK</Nav.Link>
           </Nav>
-          <Button variant="outline-light">Login</Button>
+          <Button variant="outline-light" href="/login">Login</Button>
         </Form>
       </Navbar>
     </div >
