@@ -1,24 +1,19 @@
 import React from 'react';
-import "./App.css"
-//import { Circle2 } from 'react-preloaders';
-import NavBar from "./Nav/Nav.js";
-import Body from "./Body/Body.js";
+import {Route, Switch, BrowserRouter} from "react-router-dom";
+import HomePage from "./HomePage.js"
 
-function App() {
-  return (
-    <div>
-      <div className="App">
-        <NavBar />
-        <Body />
-      </div>
-      {/* <Circle2
-        background="linear-gradient(to right bottom, #6509e2 40%, #5a02b4 70%)"
-        time={2000}
-        animation="slide-left"
-        color="yellow"
-      /> */}
-    </div>
-  );
+import "./App.css"
+
+class App extends React.Component{
+  render(){
+    return(
+      <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={HomePage}/>
+          </Switch>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
