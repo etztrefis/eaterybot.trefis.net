@@ -1,0 +1,24 @@
+.outer {
+	display: table;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+}
+
+.middle {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.inner {
+	margin-left: auto;
+	margin-right: auto;
+	width: 400px;
+}
+
+.wrapper {
+	height: 100vh;
+	background: linear-gradient(to right bottom, #6509e2 40%, #5a02b4 70%);
+}
