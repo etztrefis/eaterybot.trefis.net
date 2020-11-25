@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import HomePage from "./Pages/Home/Home.js";
 import AdminPage from "./Pages/Admin/Admin.js";
@@ -10,8 +10,15 @@ import PrivateRoute from "./Routes/PrivateRoute.js";
 import "./App.css";
 
 function App(props) {
+	const existingTokens = JSON.parse(localStorage.getItem("tokens"));
+	const [authTokens, setAuthTokens] = useState(existingTokens);
+
+	const setTokens = (data) => {
+		localStorage.setItem("tokens", JSON.stringify(data));
+		setAuthTokens(data);
+	};
 	return (
-		<AuthContext.Provider value={false}>
+		<AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
 			<Router>
 				<div>
 					<Route exact path="/" component={HomePage} />
