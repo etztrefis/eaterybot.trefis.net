@@ -35,12 +35,15 @@ const Button = styled.button`
 	font-weight: 700;
 	width: 100%;
 	margin-bottom: 1rem;
+	margin-top: 15px;
 	font-size: 0.8rem;
 `;
 
 const Logo = styled.img`
-	width: 50%;
+	height: 25%;
+	width: 25%;
 	margin-bottom: 1rem;
+	padding-top: 15px;
 `;
 
 const Text = styled.p`
