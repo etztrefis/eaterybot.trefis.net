@@ -22,3 +22,22 @@
 	height: 100vh;
 	background: linear-gradient(to right bottom, #6509e2 40%, #5a02b4 70%);
 }
+
+.pass-wrapper {
+	position: relative;
+	display: flex;
+}
+i {
+	position: absolute;
+	top: 32%;
+	right: 10%;
+}
+i:hover {
+	color: gray;
+	cursor: pointer;
+}
+
+input {
+	width: 93%;
+	font-size: 22;
+}

@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-// import logoImg from "../img/logo.jpg";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import logoImg from "../../img/logo.png";
 import {
 	Card,
 	Logo,
@@ -11,14 +13,21 @@ import {
 	Header,
 } from "../../Components/AuthForm/AuthForm.js";
 
+import "./Signup.css";
+
 function Signup() {
+	const eye = <FontAwesomeIcon icon={faEye} />;
+	const [passwordShown, setPasswordShown] = useState(false);
+	const togglePasswordVisiblity = () => {
+		setPasswordShown(passwordShown ? false : true);
+	};
 	return (
 		<div className="wrapper">
 			<div className="outer">
 				<div className="middle">
 					<div className="inner">
 						<Card>
-							{/* <Logo src={logoImg} /> */}
+							<Logo src={logoImg} />
 							<Header>Регистрация</Header>
 							<Text>
 								Создайте аккаунт администратора в системе
@@ -26,14 +35,27 @@ function Signup() {
 							</Text>
 							<Form>
 								<Input type="email" placeholder="email" />
-								<Input type="password" placeholder="password" />
+								<div className="pass-wrapper">
+									{" "}
+									<Input
+										type={
+											passwordShown ? "text" : "password"
+										}
+										placeholder="password"
+									/>
+									<i onClick={togglePasswordVisiblity}>
+										{eye}
+									</i>{" "}
+								</div>
 								<Input
-									type="password"
+									type={passwordShown ? "text" : "password"}
 									placeholder="password again"
 								/>
 								<Button>Зарегестрироваться</Button>
 							</Form>
-							<Link to="/login">Уже есть аккаунт?</Link>
+							<Link to="/login" style={{ paddingBottom: "15px" }}>
+								Уже есть аккаунт?
+							</Link>
 						</Card>
 					</div>
 				</div>
