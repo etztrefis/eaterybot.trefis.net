@@ -29,3 +29,7 @@
 	border-radius: 7px;
 	border: 1px solid #ecbbbf;
 }
+
+input:focus {
+	border: 1px solid #555;
+}

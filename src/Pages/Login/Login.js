@@ -72,6 +72,7 @@ function Login(props) {
 										setUserName(e.target.value);
 									}}
 									placeholder="email"
+									autoFocus="true"
 								/>
 								<div className="pass-wrapper">
 									<Input
@@ -88,7 +89,9 @@ function Login(props) {
 										{eye}
 									</i>{" "}
 								</div>
-								<Button onClick={postLogin}>Войти</Button>
+								<Button type="button" onClick={postLogin}>
+									Войти
+								</Button>
 							</Form>
 							<Link
 								to="/signup"
