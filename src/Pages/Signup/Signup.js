@@ -21,6 +21,15 @@ function Signup() {
 	const togglePasswordVisiblity = () => {
 		setPasswordShown(passwordShown ? false : true);
 	};
+
+	const [isError, setIsError] = useState(false);
+	const [userName, setUserName] = useState("");
+	const [password, setPassword] = useState("");
+	const [passwordAgain, setPasswordAgain] = useState("");
+
+	// fucntion postSignup(){
+	// }
+
 	return (
 		<div className="wrapper">
 			<div className="outer">
@@ -34,13 +43,19 @@ function Signup() {
 								Eaterybot
 							</Text>
 							<Form>
-								<Input type="email" placeholder="email" />
+								<Input
+									type="email"
+									placeholder="email"
+									value={userName}
+									autoFocus="true"
+								/>
 								<div className="pass-wrapper">
 									{" "}
 									<Input
 										type={
 											passwordShown ? "text" : "password"
 										}
+										value={password}
 										placeholder="password"
 									/>
 									<i onClick={togglePasswordVisiblity}>
@@ -49,12 +64,16 @@ function Signup() {
 								</div>
 								<Input
 									type={passwordShown ? "text" : "password"}
+									value={passwordAgain}
 									placeholder="password again"
 								/>
 								<Button>Зарегестрироваться</Button>
 							</Form>
-							<Link to="/login" style={{ paddingBottom: "15px" }}>
+							<Link to="/login" style={{ paddingBottom: "10px" }}>
 								Уже есть аккаунт?
+							</Link>
+							<Link to="/" style={{ paddingBottom: "15px" }}>
+								Назад
 							</Link>
 						</Card>
 					</div>
