@@ -10,6 +10,10 @@ const Card = styled.div`
 	align-items: center;
 	background-color: white;
 	border-radius: 7px;
+
+	-webkit-box-shadow: 3px 3px 20px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 3px 3px 20px 0px rgba(0, 0, 0, 0.75);
+	box-shadow: 3px 3px 20px 0px rgba(0, 0, 0, 0.75);
 `;
 
 const Form = styled.div`
@@ -21,7 +25,10 @@ const Form = styled.div`
 const Input = styled.input`
 	padding: 1rem;
 	margin: 10px;
-	border: 1px solid #999;
+	border: 1px solid #ccc;
+	-webkit-transition: 0.5s;
+	transition: 0.5s;
+	outline: none;
 	margin-bottom: 1rem;
 	font-size: 0.8rem;
 `;
