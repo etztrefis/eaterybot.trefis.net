@@ -40,8 +40,8 @@ const Button = styled.button`
 `;
 
 const Logo = styled.img`
-	height: 25%;
 	width: 25%;
+	height: 25%;
 	margin-bottom: 1rem;
 	padding-top: 15px;
 `;
@@ -58,8 +58,6 @@ const Header = styled.h4`
 	text-align: center;
 `;
 
-const Error = styled.div`
-	background-color: red;
-`;
+const Error = styled.div``;
 
 export { Form, Input, Button, Logo, Card, Error, Text, Header };
