@@ -22,3 +22,10 @@
 	height: 100vh;
 	background: linear-gradient(to right bottom, #6509e2 40%, #5a02b4 70%);
 }
+
+.error-wrapper {
+	padding: 5px 10px 5px 10px;
+	background-color: #ffe3e6;
+	border-radius: 7px;
+	border: 1px solid #ecbbbf;
+}

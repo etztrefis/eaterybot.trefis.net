@@ -24,6 +24,8 @@ function Login(props) {
 		setPasswordShown(passwordShown ? false : true);
 	};
 
+	const referer = props.location.state ? props.location.state.referer : "/";
+
 	const [isLoggedIn, setLoggedIn] = useState(false);
 	const [isError, setIsError] = useState(false);
 	const [userName, setUserName] = useState("");
@@ -48,8 +50,6 @@ function Login(props) {
 				setIsError(true);
 			});
 	}
-
-	const referer = props.location.state.referer || "/";
 
 	if (isLoggedIn) {
 		return <Redirect to={referer} />;
@@ -78,9 +78,7 @@ function Login(props) {
 										type={
 											passwordShown ? "text" : "password"
 										}
-										value={
-											passwordShown ? "text" : "password"
-										}
+										value={password}
 										onChange={(e) => {
 											setPassword(e.target.value);
 										}}
@@ -94,13 +92,26 @@ function Login(props) {
 							</Form>
 							<Link
 								to="/signup"
-								style={{ paddingBottom: "15px" }}
+								style={{ paddingBottom: "10px" }}
 							>
 								Первый раз на нашем сайте?
 							</Link>
 							{isError && (
-								<Error>Почта или пароль указаны неверно.</Error>
+								<div className="error-wrapper">
+									<Error>
+										Почта или пароль указаны неверно.
+									</Error>
+								</div>
 							)}
+							<Link
+								to="/"
+								style={{
+									paddingBottom: "15px",
+									paddingTop: "10px",
+								}}
+							>
+								Назад
+							</Link>
 						</Card>
 					</div>
 				</div>
