@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Sequelize from "sequelize";
 import { Link } from "react-router-dom";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,6 +16,7 @@ import {
 } from "../../Components/AuthForm/AuthForm.js";
 
 import "./Signup.css";
+require("dotenv").config();
 
 function Signup() {
 	const eye = <FontAwesomeIcon icon={faEye} />;
@@ -22,6 +24,17 @@ function Signup() {
 	const togglePasswordVisiblity = () => {
 		setPasswordShown(passwordShown ? false : true);
 	};
+
+	const sequelize = new Sequelize(
+		process.env.DBNAME,
+		process.env.USER,
+		process.env.PASS,
+		{
+			host: process.env.HOST,
+			dialect: "mysql",
+			logging: false,
+		}
+	);
 
 	const [isError, setIsError] = useState(false);
 	const [isPasswordTheSameError, setIsPasswordTheSameError] = useState(false);
@@ -32,6 +45,7 @@ function Signup() {
 	const [userName, setUserName] = useState("");
 	const [password, setPassword] = useState("");
 	const [passwordAgain, setPasswordAgain] = useState("");
+	const [validateCode, setValidateCode] = useState("");
 
 	const isPasswordTheSame = () => {
 		if (password === passwordAgain && passwordAgain !== "") {
@@ -72,8 +86,9 @@ function Signup() {
 		}
 	};
 
-	// fucntion postSignup(){
-	// }
+	const isValidateCode = () => {};
+
+	function postSignup() {}
 
 	return (
 		<div className="wrapper">
@@ -123,6 +138,15 @@ function Signup() {
 										setPasswordAgain(e.target.value);
 									}}
 									onBlur={isPasswordTheSame}
+								/>
+								<Input
+									type="code"
+									placeholder="code"
+									value={validateCode}
+									onChange={(e) => {
+										setValidateCode(e.target.value);
+									}}
+									onBlur={isValidateCode}
 								/>
 								<Button>Зарегестрироваться</Button>
 							</Form>
