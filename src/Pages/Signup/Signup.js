@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import Sequelize from "sequelize";
 import { Link } from "react-router-dom";
+import { Sequelize } from "sequelize";
+import mysql2 from "mysql2";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logoImg from "../../img/logo.png";
@@ -16,7 +17,8 @@ import {
 } from "../../Components/AuthForm/AuthForm.js";
 
 import "./Signup.css";
-require("dotenv").config();
+
+require("dotenv").config({ path: "./.env" });
 
 function Signup() {
 	const eye = <FontAwesomeIcon icon={faEye} />;
@@ -24,17 +26,6 @@ function Signup() {
 	const togglePasswordVisiblity = () => {
 		setPasswordShown(passwordShown ? false : true);
 	};
-
-	const sequelize = new Sequelize(
-		process.env.DBNAME,
-		process.env.USER,
-		process.env.PASS,
-		{
-			host: process.env.HOST,
-			dialect: "mysql",
-			logging: false,
-		}
-	);
 
 	const [isError, setIsError] = useState(false);
 	const [isPasswordTheSameError, setIsPasswordTheSameError] = useState(false);
@@ -86,7 +77,28 @@ function Signup() {
 		}
 	};
 
-	const isValidateCode = () => {};
+	const sequelize = new Sequelize(
+		process.env.DBNAME,
+		process.env.USER,
+		process.env.PASS,
+		{
+			host: process.env.HOST,
+			dialect: "mysql",
+			dialectModule: mysql2,
+			logging: false,
+		}
+	);
+
+	const isValidateCode = () => {
+		sequelize.authenticate().then(() => {
+			console.log("asd");
+		});
+		sequelize
+			.query(
+				`SELECT Available FROM ValidationCodes WHERE Code ="${validateCode}"`
+			)
+			.then((result) => console.log(result));
+	};
 
 	function postSignup() {}
 
