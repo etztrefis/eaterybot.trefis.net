@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Sequelize } from "sequelize";
-import mysql2 from "mysql2";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logoImg from "../../img/logo.png";
@@ -18,7 +16,6 @@ import {
 
 import "./Signup.css";
 
-require("dotenv").config({ path: "./.env" });
 
 function Signup() {
 	const eye = <FontAwesomeIcon icon={faEye} />;
@@ -77,28 +74,17 @@ function Signup() {
 		}
 	};
 
-	const sequelize = new Sequelize(
-		process.env.DBNAME,
-		process.env.USER,
-		process.env.PASS,
-		{
-			host: process.env.HOST,
-			dialect: "mysql",
-			dialectModule: mysql2,
-			logging: false,
-		}
-	);
 
-	const isValidateCode = () => {
-		sequelize.authenticate().then(() => {
-			console.log("asd");
-		});
-		sequelize
-			.query(
-				`SELECT Available FROM ValidationCodes WHERE Code ="${validateCode}"`
-			)
-			.then((result) => console.log(result));
-	};
+	//const isValidateCode = () => {
+	//	sequelize.authenticate().then(() => {
+	//		console.log("asd");
+	//	});
+	//	sequelize
+	//		.query(
+	//			`SELECT Available FROM ValidationCodes WHERE Code ="${validateCode}"`
+	//		)
+	//		.then((result) => console.log(result));
+	//};
 
 	function postSignup() {}
 
