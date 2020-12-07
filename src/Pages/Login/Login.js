@@ -17,6 +17,8 @@ import {
 	Error,
 } from "../../Components/AuthForm/AuthForm.js";
 
+import AdminsDataServices from "../../services/admins.service";
+
 function Login(props) {
 	const eye = <FontAwesomeIcon icon={faEye} />;
 	const [passwordShown, setPasswordShown] = useState(false);
@@ -33,12 +35,9 @@ function Login(props) {
 	const { setAuthTokens } = useAuth();
 
 	function postLogin() {
-		axios
-			.post("https://www.eaterybot.trefis.net/login", {
-				userName,
-				password,
-			})
+		AdminsDataServices.get(userName)
 			.then((result) => {
+				console.log(result);
 				if (result.status === 200) {
 					setAuthTokens(result.data);
 					setLoggedIn(true);

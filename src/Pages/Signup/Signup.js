@@ -16,7 +16,6 @@ import {
 
 import "./Signup.css";
 
-
 function Signup() {
 	const eye = <FontAwesomeIcon icon={faEye} />;
 	const [passwordShown, setPasswordShown] = useState(false);
@@ -73,7 +72,6 @@ function Signup() {
 			return true;
 		}
 	};
-
 
 	//const isValidateCode = () => {
 	//	sequelize.authenticate().then(() => {
@@ -142,9 +140,9 @@ function Signup() {
 									placeholder="code"
 									value={validateCode}
 									onChange={(e) => {
-										setValidateCode(e.target.value);
+										// setValidateCode(e.target.value);
 									}}
-									onBlur={isValidateCode}
+									// onBlur={isValidateCode}
 								/>
 								<Button>Зарегестрироваться</Button>
 							</Form>
