@@ -1,5 +1,6 @@
 ﻿import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import axios from "axios";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logoImg from "../../img/logo.png";
@@ -29,6 +30,7 @@ function Signup() {
 	const [isPasswordValidateError, setIsPasswordValidateError] = useState(
 		false
 	);
+	const [isValidateError, setIsValidateError] = useState(false);
 	const [userName, setUserName] = useState("");
 	const [password, setPassword] = useState("");
 	const [passwordAgain, setPasswordAgain] = useState("");
@@ -73,18 +75,58 @@ function Signup() {
 		}
 	};
 
-	//const isValidateCode = () => {
-	//	sequelize.authenticate().then(() => {
-	//		console.log("asd");
-	//	});
-	//	sequelize
-	//		.query(
-	//			`SELECT Available FROM ValidationCodes WHERE Code ="${validateCode}"`
-	//		)
-	//		.then((result) => console.log(result));
-	//};
+	const isValidateCode = async () => {
+		let apiResponse = null;
+		try {
+			apiResponse = await axios.get(
+				`http://localhost:8081/api/codes/${validateCode}`
+			);
+		} catch (error) {
+			console.clear();
+		} finally {
+			if (apiResponse !== null) {
+				setIsValidateError(false);
+				return false;
+			} else {
+				setIsValidateError(true);
+				return true;
+			}
+		}
+	};
 
-	function postSignup() {}
+	async function postSignup() {
+		if (
+			!isPasswordTheSameError &&
+			!isEmailValidateError &&
+			!isPasswordValidateError &&
+			!isValidateError
+		) {
+			console.log(process.env.TOKEN);
+			let apiResponse = null;
+			const config = {
+				headers: {
+					Authorization: `Bearer ${process.env.TOKEN}`,
+				},
+			};
+			try {
+				apiResponse = await axios.post(
+					`http://localhost:8081/api/admins/create/${userName}/${password}`,
+					{},
+					config
+				);
+			} catch (error) {
+				// console.clear();
+			} finally {
+				if (apiResponse !== null) {
+					setIsError(false);
+					const referer = "/login";
+					return <Redirect to={referer} />;
+				} else {
+					setIsError(true);
+				}
+			}
+		}
+	}
 
 	return (
 		<div className="wrapper">
@@ -136,29 +178,21 @@ function Signup() {
 									onBlur={isPasswordTheSame}
 								/>
 								<Input
-									type="code"
+									type="text"
 									placeholder="code"
 									value={validateCode}
 									onChange={(e) => {
-										// setValidateCode(e.target.value);
+										setValidateCode(e.target.value);
 									}}
-									// onBlur={isValidateCode}
+									onBlur={isValidateCode}
 								/>
-								<Button>Зарегестрироваться</Button>
+								<Button type="button" onClick={postSignup}>
+									Зарегестрироваться
+								</Button>
 							</Form>
 							<Link to="/login" style={{ paddingBottom: "10px" }}>
 								Уже есть аккаунт?
 							</Link>
-							{isPasswordTheSameError && (
-								<div className="error-wrapper">
-									<Error>Пароли не совпадают.</Error>
-								</div>
-							)}
-							{isEmailValidateError && (
-								<div className="error-wrapper">
-									<Error>Такой email не существует.</Error>
-								</div>
-							)}
 							{isPasswordValidateError && (
 								<div className="error-wrapper">
 									<Error>
@@ -173,6 +207,31 @@ function Signup() {
 										Хотя бы один символ в нижнем регистре.
 										<br />
 									</Error>
+								</div>
+							)}
+							{isValidateError && (
+								<Error>
+									<div className="error-wrapper">
+										<Error>
+											Введенного кода регистрации не
+											существует.
+										</Error>
+									</div>
+								</Error>
+							)}
+							{isPasswordTheSameError && (
+								<div className="error-wrapper">
+									<Error>Пароли не совпадают.</Error>
+								</div>
+							)}
+							{isEmailValidateError && (
+								<div className="error-wrapper">
+									<Error>Такой email не существует.</Error>
+								</div>
+							)}
+							{isError && (
+								<div className="error-wrapper">
+									<Error>Ошибка добавления.</Error>
 								</div>
 							)}
 							<Link to="/" style={{ paddingBottom: "15px" }}>
