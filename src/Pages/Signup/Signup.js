@@ -101,26 +101,25 @@ function Signup() {
 			!isPasswordValidateError &&
 			!isValidateError
 		) {
-			console.log(process.env.TOKEN);
 			let apiResponse = null;
 			const config = {
 				headers: {
-					Authorization: `Bearer ${process.env.TOKEN}`,
+					Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
 				},
 			};
 			try {
-				apiResponse = await axios.post(
-					`http://localhost:8081/api/admins/create/${userName}/${password}`,
-					{},
+				apiResponse = await axios.get(
+					`http://localhost:8081/api/admins/create/${userName}/${password}`, //CHANGE BEFORE BUILD
 					config
 				);
 			} catch (error) {
-				// console.clear();
+				console.clear();
 			} finally {
+				console.log(apiResponse);
 				if (apiResponse !== null) {
 					setIsError(false);
 					const referer = "/login";
-					return <Redirect to={referer} />;
+					return <Redirect to={referer} />; //doesn`t work
 				} else {
 					setIsError(true);
 				}
