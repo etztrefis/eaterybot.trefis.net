@@ -13,11 +13,12 @@ import {
 	Text,
 	Header,
 	Error,
+	Success,
 } from "../../Components/AuthForm/AuthForm.js";
 
 import "./Signup.css";
 
-function Signup() {
+function Signup(props) {
 	const eye = <FontAwesomeIcon icon={faEye} />;
 	const [passwordShown, setPasswordShown] = useState(false);
 	const togglePasswordVisiblity = () => {
@@ -30,11 +31,32 @@ function Signup() {
 	const [isPasswordValidateError, setIsPasswordValidateError] = useState(
 		false
 	);
+	const [isSuccess, setIsSuccess] = useState(false);
 	const [isValidateError, setIsValidateError] = useState(false);
 	const [userName, setUserName] = useState("");
 	const [password, setPassword] = useState("");
 	const [passwordAgain, setPasswordAgain] = useState("");
 	const [validateCode, setValidateCode] = useState("");
+
+	const validatePassword = () => {
+		const reg = new RegExp(
+			/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+		);
+		const result = password.match(reg);
+		if (result === null && password !== "") {
+			setIsPasswordValidateError(true);
+			return false;
+		} else {
+			setIsPasswordValidateError(false);
+			if (password === passwordAgain && passwordAgain !== "") {
+				setIsPasswordTheSameError(false);
+				return false;
+			} else {
+				setIsPasswordTheSameError(true);
+				return true;
+			}
+		}
+	};
 
 	const isPasswordTheSame = () => {
 		if (password === passwordAgain && passwordAgain !== "") {
@@ -57,20 +79,6 @@ function Signup() {
 			return false;
 		} else {
 			setIsEmailValidateError(false);
-			return true;
-		}
-	};
-
-	const validatePassword = () => {
-		const reg = new RegExp(
-			/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
-		);
-		const result = password.match(reg);
-		if (result === null && password !== "") {
-			setIsPasswordValidateError(true);
-			return false;
-		} else {
-			setIsPasswordValidateError(false);
 			return true;
 		}
 	};
@@ -118,8 +126,10 @@ function Signup() {
 				console.log(apiResponse);
 				if (apiResponse !== null) {
 					setIsError(false);
-					const referer = "/login";
-					return <Redirect to={referer} />; //doesn`t work
+					setIsSuccess(true);
+					setTimeout(() => {
+						props.history.push("/login");
+					}, 1500);
 				} else {
 					setIsError(true);
 				}
@@ -192,6 +202,11 @@ function Signup() {
 							<Link to="/login" style={{ paddingBottom: "10px" }}>
 								Уже есть аккаунт?
 							</Link>
+							{isSuccess && (
+								<div className="success-wrapper">
+									<Success>Готово. Перенаправляем...</Success>
+								</div>
+							)}
 							{isPasswordValidateError && (
 								<div className="error-wrapper">
 									<Error>
