@@ -31,6 +31,14 @@
 	margin-bottom: 10px;
 }
 
+.success-wrapper {
+	padding: 5px 10px 5px 10px;
+	background-color: #c2fdd6;
+	border-radius: 7px;
+	border: 1px solid #86da98;
+	margin-bottom: 10px;
+}
+
 input:focus {
 	border: 1px solid #555;
 }
