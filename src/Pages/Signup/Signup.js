@@ -1,5 +1,5 @@
 ﻿import React, { useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,6 +26,7 @@ function Signup(props) {
 	};
 
 	const [isError, setIsError] = useState(false);
+	const [isExists, setIsExists] = useState(false);
 	const [isPasswordTheSameError, setIsPasswordTheSameError] = useState(false);
 	const [isEmailValidateError, setIsEmailValidateError] = useState(false);
 	const [isPasswordValidateError, setIsPasswordValidateError] = useState(
@@ -121,17 +122,24 @@ function Signup(props) {
 					config
 				);
 			} catch (error) {
-				console.clear();
+				//console.clear();
+				console.error(error);
 			} finally {
-				console.log(apiResponse);
+				setIsExists(false);
+				setIsError(false);
 				if (apiResponse !== null) {
-					setIsError(false);
-					setIsSuccess(true);
-					setTimeout(() => {
-						props.history.push("/login");
-					}, 1500);
+					if (apiResponse.data !== "") {
+						setIsExists(true);
+					} else {
+						setIsExists(false);
+						setIsError(false);
+						setIsSuccess(true);
+						setTimeout(() => {
+							props.history.push("/login");
+						}, 1500);
+					}
 				} else {
-					setIsError(true);
+					setIsError(true); //DOESNT WORK IF SETISERROR ALREADY TRUE BUT YOU CHANGE EMAIL L O L
 				}
 			}
 		}
@@ -202,6 +210,13 @@ function Signup(props) {
 							<Link to="/login" style={{ paddingBottom: "10px" }}>
 								Уже есть аккаунт?
 							</Link>
+							{isExists && (
+								<div className="error-wrapper">
+									<Error>
+										Указаная почта уже используется.
+									</Error>
+								</div>
+							)}
 							{isSuccess && (
 								<div className="success-wrapper">
 									<Success>Готово. Перенаправляем...</Success>
