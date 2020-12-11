@@ -66,5 +66,6 @@ const Header = styled.h4`
 `;
 
 const Error = styled.div``;
+const Success = styled.div``;
 
-export { Form, Input, Button, Logo, Card, Error, Text, Header };
+export { Form, Input, Button, Logo, Card, Error, Text, Header, Success };
