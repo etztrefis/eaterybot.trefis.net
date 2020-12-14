@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useAuth } from "../../context/auth.js";
 import axios from "axios";
 import "./Login.css";
 import logoImg from "../../img/logo.png";
@@ -17,8 +16,6 @@ import {
 	Error,
 } from "../../Components/AuthForm/AuthForm.js";
 
-import AdminsDataServices from "../../services/admins.service";
-
 function Login(props) {
 	const eye = <FontAwesomeIcon icon={faEye} />;
 	const [passwordShown, setPasswordShown] = useState(false);
@@ -32,22 +29,22 @@ function Login(props) {
 	const [isError, setIsError] = useState(false);
 	const [userName, setUserName] = useState("");
 	const [password, setPassword] = useState("");
-	const { setAuthTokens } = useAuth();
 
-	function postLogin() {
-		AdminsDataServices.get(userName)
-			.then((result) => {
-				console.log(result);
-				if (result.status === 200) {
-					setAuthTokens(result.data);
-					setLoggedIn(true);
-				} else {
-					setIsError(true);
-				}
-			})
-			.catch((e) => {
+	async function postLogin() {
+		let apiResponse = null;
+		try {
+			apiResponse = await axios.get(
+				`http://localhost:8081/api/admins/${userName}/${password}` //CHANGE BEFORE BUILD
+			);
+		} catch (error) {
+			console.clear();
+		} finally {
+			if (apiResponse !== null) {
+				setLoggedIn(true);
+			} else {
 				setIsError(true);
-			});
+			}
+		}
 	}
 
 	if (isLoggedIn) {
@@ -71,7 +68,7 @@ function Login(props) {
 										setUserName(e.target.value);
 									}}
 									placeholder="email"
-									autoFocus="true"
+									autoFocus={true}
 								/>
 								<div className="pass-wrapper">
 									<Input
@@ -101,7 +98,8 @@ function Login(props) {
 							{isError && (
 								<div className="error-wrapper">
 									<Error>
-										Почта или пароль указаны неверно.
+										Почта или пароль указаны неверно. Или
+										учетная запись уже не существует.
 									</Error>
 								</div>
 							)}
