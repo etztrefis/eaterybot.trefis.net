@@ -126,8 +126,7 @@ function Signup(props) {
 						config
 					);
 				} catch (error) {
-					//console.clear();
-					console.error(error);
+					console.clear();
 				} finally {
 					if (apiResponse !== null) {
 						if (apiResponse.data.message === "Already exists.") {
