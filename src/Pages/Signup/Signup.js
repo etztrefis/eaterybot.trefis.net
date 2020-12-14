@@ -103,46 +103,49 @@ function Signup(props) {
 		}
 	};
 
-	async function postSignup() {
-		if (
-			!isPasswordTheSameError &&
-			!isEmailValidateError &&
-			!isPasswordValidateError &&
-			!isValidateError
-		) {
-			let apiResponse = null;
-			const config = {
-				headers: {
-					Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
-				},
-			};
-			try {
-				apiResponse = await axios.get(
-					`http://localhost:8081/api/admins/create/${userName}/${password}`, //CHANGE BEFORE BUILD
-					config
-				);
-			} catch (error) {
-				//console.clear();
-				console.error(error);
-			} finally {
-				setIsExists(false);
-				setIsError(false);
-				if (apiResponse !== null) {
-					if (apiResponse.data !== "") {
-						setIsExists(true);
+	function postSignup() {
+		setIsExists(false);
+		setIsError(false);
+
+		setTimeout(async () => {
+			if (
+				!isPasswordTheSameError &&
+				!isEmailValidateError &&
+				!isPasswordValidateError &&
+				!isValidateError
+			) {
+				let apiResponse = null;
+				const config = {
+					headers: {
+						Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
+					},
+				};
+				try {
+					apiResponse = await axios.get(
+						`http://localhost:8081/api/admins/create/${userName}/${password}`, //CHANGE BEFORE BUILD
+						config
+					);
+				} catch (error) {
+					//console.clear();
+					console.error(error);
+				} finally {
+					if (apiResponse !== null) {
+						if (apiResponse.data.message === "Already exists.") {
+							setIsExists(true);
+						} else {
+							setIsExists(false);
+							setIsError(false);
+							setIsSuccess(true);
+							setTimeout(() => {
+								props.history.push("/login");
+							}, 1500);
+						}
 					} else {
-						setIsExists(false);
-						setIsError(false);
-						setIsSuccess(true);
-						setTimeout(() => {
-							props.history.push("/login");
-						}, 1500);
+						setIsError(true);
 					}
-				} else {
-					setIsError(true); //DOESNT WORK IF SETISERROR ALREADY TRUE BUT YOU CHANGE EMAIL L O L
 				}
 			}
-		}
+		}, 500);
 	}
 
 	return (
