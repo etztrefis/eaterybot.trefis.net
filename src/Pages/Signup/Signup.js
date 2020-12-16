@@ -1,5 +1,6 @@
 ﻿import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import axios from "axios";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -148,131 +149,149 @@ function Signup(props) {
 	}
 
 	return (
-		<div className="wrapper">
-			<div className="outer">
-				<div className="middle">
-					<div className="inner">
-						<Card>
-							<Logo src={logoImg} />
-							<Header>Регистрация</Header>
-							<Text>
-								Создайте аккаунт администратора в системе
-								Eaterybot
-							</Text>
-							<Form>
-								<Input
-									type="email"
-									placeholder="email"
-									value={userName}
-									autoFocus={true}
-									onChange={(e) => {
-										setUserName(e.target.value);
-									}}
-									onBlur={validateEmail}
-								/>
-								<div className="pass-wrapper">
-									{" "}
+		<HelmetProvider>
+			<div className="wrapper">
+				<div className="outer">
+					<div className="middle">
+						<div className="inner">
+							<Helmet>
+								<title>EateryBot | SignUp</title>
+							</Helmet>
+							<Card>
+								<Logo src={logoImg} />
+								<Header>Регистрация</Header>
+								<Text>
+									Создайте аккаунт администратора в системе
+									Eaterybot
+								</Text>
+								<Form>
+									<Input
+										type="email"
+										placeholder="email"
+										value={userName}
+										autoFocus={true}
+										onChange={(e) => {
+											setUserName(e.target.value);
+										}}
+										onBlur={validateEmail}
+									/>
+									<div className="pass-wrapper">
+										{" "}
+										<Input
+											type={
+												passwordShown
+													? "text"
+													: "password"
+											}
+											value={password}
+											placeholder="password"
+											onChange={(e) => {
+												setPassword(e.target.value);
+											}}
+											onBlur={validatePassword}
+										/>
+										<i onClick={togglePasswordVisiblity}>
+											{eye}
+										</i>{" "}
+									</div>
 									<Input
 										type={
 											passwordShown ? "text" : "password"
 										}
-										value={password}
-										placeholder="password"
+										value={passwordAgain}
+										placeholder="password again"
 										onChange={(e) => {
-											setPassword(e.target.value);
+											setPasswordAgain(e.target.value);
 										}}
-										onBlur={validatePassword}
+										onBlur={isPasswordTheSame}
 									/>
-									<i onClick={togglePasswordVisiblity}>
-										{eye}
-									</i>{" "}
-								</div>
-								<Input
-									type={passwordShown ? "text" : "password"}
-									value={passwordAgain}
-									placeholder="password again"
-									onChange={(e) => {
-										setPasswordAgain(e.target.value);
-									}}
-									onBlur={isPasswordTheSame}
-								/>
-								<Input
-									type="text"
-									placeholder="code"
-									value={validateCode}
-									onChange={(e) => {
-										setValidateCode(e.target.value);
-									}}
-									onBlur={isValidateCode}
-								/>
-								<Button type="button" onClick={postSignup}>
-									Зарегестрироваться
-								</Button>
-							</Form>
-							<Link to="/login" style={{ paddingBottom: "10px" }}>
-								Уже есть аккаунт?
-							</Link>
-							{isExists && (
-								<div className="error-wrapper">
-									<Error>
-										Указаная почта уже используется.
-									</Error>
-								</div>
-							)}
-							{isSuccess && (
-								<div className="success-wrapper">
-									<Success>Готово. Перенаправляем...</Success>
-								</div>
-							)}
-							{isPasswordValidateError && (
-								<div className="error-wrapper">
-									<Error>
-										Минимум 8 символов.
-										<br />
-										Хотя бы одна цифра.
-										<br />
-										Хотя бы один специальный символ.
-										<br />
-										Хотя бы один символ в верхнем регистре.
-										<br />
-										Хотя бы один символ в нижнем регистре.
-										<br />
-									</Error>
-								</div>
-							)}
-							{isValidateError && (
-								<Error>
+									<Input
+										type="text"
+										placeholder="code"
+										value={validateCode}
+										onChange={(e) => {
+											setValidateCode(e.target.value);
+										}}
+										onBlur={isValidateCode}
+									/>
+									<Button type="button" onClick={postSignup}>
+										Зарегестрироваться
+									</Button>
+								</Form>
+								<Link
+									to="/login"
+									style={{ paddingBottom: "10px" }}
+								>
+									Уже есть аккаунт?
+								</Link>
+								{isExists && (
 									<div className="error-wrapper">
 										<Error>
-											Введенного кода регистрации не
-											существует.
+											Указаная почта уже используется.
 										</Error>
 									</div>
-								</Error>
-							)}
-							{isPasswordTheSameError && (
-								<div className="error-wrapper">
-									<Error>Пароли не совпадают.</Error>
-								</div>
-							)}
-							{isEmailValidateError && (
-								<div className="error-wrapper">
-									<Error>Такой email не существует.</Error>
-								</div>
-							)}
-							{isError && (
-								<div className="error-wrapper">
-									<Error>Ошибка добавления.</Error>
-								</div>
-							)}
-							<Link to="/" style={{ paddingBottom: "15px" }}>
-								Назад
-							</Link>
-						</Card>
+								)}
+								{isSuccess && (
+									<div className="success-wrapper">
+										<Success>
+											Готово. Перенаправляем...
+										</Success>
+									</div>
+								)}
+								{isPasswordValidateError && (
+									<div className="error-wrapper">
+										<Error>
+											Минимум 8 символов.
+											<br />
+											Хотя бы одна цифра.
+											<br />
+											Хотя бы один специальный символ.
+											<br />
+											Хотя бы один символ в верхнем
+											регистре.
+											<br />
+											Хотя бы один символ в нижнем
+											регистре.
+											<br />
+										</Error>
+									</div>
+								)}
+								{isValidateError && (
+									<Error>
+										<div className="error-wrapper">
+											<Error>
+												Введенного кода регистрации не
+												существует.
+											</Error>
+										</div>
+									</Error>
+								)}
+								{isPasswordTheSameError && (
+									<div className="error-wrapper">
+										<Error>Пароли не совпадают.</Error>
+									</div>
+								)}
+								{isEmailValidateError && (
+									<div className="error-wrapper">
+										<Error>
+											Такой email не существует.
+										</Error>
+									</div>
+								)}
+								{isError && (
+									<div className="error-wrapper">
+										<Error>Ошибка добавления.</Error>
+									</div>
+								)}
+								<Link to="/" style={{ paddingBottom: "15px" }}>
+									Назад
+								</Link>
+							</Card>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</HelmetProvider>
 	);
 }
 

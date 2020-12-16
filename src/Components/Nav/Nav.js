@@ -32,8 +32,16 @@ function NavBar() {
 					Eatery Bot
 				</Navbar.Brand>
 				<Nav className="mr-auto">
-					<AnchorLink href="#home" style={{ textDecoration: "none" }}>
-						<Nav.Link>Home</Nav.Link>
+					<AnchorLink
+						href="#home"
+						style={{
+							textDecoration: "none",
+							color: "rgba(255, 255, 255, 0.5)",
+							display: "block",
+							padding: " .5rem 1rem",
+						}}
+					>
+						Home
 					</AnchorLink>
 					<Nav.Link href="#features">Features</Nav.Link>
 					<Nav.Link href="#pricing">Pricing</Nav.Link>
