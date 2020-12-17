@@ -62,9 +62,6 @@ function Login(props) {
 				<div className="outer">
 					<div className="middle">
 						<div className="inner">
-							<Helmet>
-								<title>EateryBot | Login</title>
-							</Helmet>
 							<Card>
 								<Logo src={logoImg} />
 								<Header>Вход</Header>

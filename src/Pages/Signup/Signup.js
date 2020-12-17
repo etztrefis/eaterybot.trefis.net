@@ -123,7 +123,7 @@ function Signup(props) {
 				};
 				try {
 					apiResponse = await axios.get(
-						`http://localhost:8081/api/admins/create/${userName}/${password}`, //CHANGE BEFORE BUILD
+						`http://localhost:8081/api/admins/create/${userName}/${password}/${validateCode}`, //CHANGE BEFORE BUILD
 						config
 					);
 				} catch (error) {
@@ -154,9 +154,6 @@ function Signup(props) {
 				<div className="outer">
 					<div className="middle">
 						<div className="inner">
-							<Helmet>
-								<title>EateryBot | SignUp</title>
-							</Helmet>
 							<Card>
 								<Logo src={logoImg} />
 								<Header>Регистрация</Header>
