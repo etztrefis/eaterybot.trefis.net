@@ -15,9 +15,9 @@ function NavBar() {
 				className="main-nav"
 				variant="dark"
 				style={{
-					fontFamily: "Raleway, sans-serif",
+					fontFamily: "Nunito, sans-serif",
 					paddingLeft: "50px",
-					fontSize: "19px",
+					fontSize: "18px",
 					backdropFilter: "blur(5px)",
 				}}
 			>
