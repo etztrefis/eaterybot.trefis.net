@@ -1,3 +1,19 @@
 body {
 	background: linear-gradient(to right bottom, #6509e2 40%, #5a02b4 70%);
 }
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+.home,
+.devices,
+.test {
+	display: flex;
+	height: 90vh;
+	align-items: center;
+	justify-content: center;
+	font-size: 3rem;
+}
