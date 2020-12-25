@@ -115,7 +115,7 @@ function Login(props) {
 								<Link
 									to="/"
 									style={{
-										paddingBottom: "15px",
+										paddingBottom: "25px",
 										paddingTop: "10px",
 									}}
 								>

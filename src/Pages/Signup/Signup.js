@@ -280,7 +280,7 @@ function Signup(props) {
 										<Error>Ошибка добавления.</Error>
 									</div>
 								)}
-								<Link to="/" style={{ paddingBottom: "15px" }}>
+								<Link to="/" style={{ paddingBottom: "25px" }}>
 									Назад
 								</Link>
 							</Card>
