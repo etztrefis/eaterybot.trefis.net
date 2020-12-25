@@ -50,7 +50,7 @@ const Logo = styled.img`
 	width: 25%;
 	height: 25%;
 	margin-bottom: 1rem;
-	padding-top: 15px;
+	padding-top: 30px;
 `;
 
 const Text = styled.p`
