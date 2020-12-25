@@ -150,6 +150,23 @@ function Signup(props) {
 
 	return (
 		<HelmetProvider>
+			<div className="area">
+				<ul className="circles">
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+			</div>
 			<div className="wrapper">
 				<div className="outer">
 					<div className="middle">
