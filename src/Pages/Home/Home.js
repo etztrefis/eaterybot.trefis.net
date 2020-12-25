@@ -1,9 +1,9 @@
 import React from "react";
-//import { Circle2 } from 'react-preloaders';
+//import { Circle2 } from "react-preloaders";
 import NavBar from "../../Components/Nav/Nav.js";
 import Body from "../../Components/Body/Body.js";
 
-function Home(props) {
+function Home() {
 	return (
 		<div>
 			<div>
