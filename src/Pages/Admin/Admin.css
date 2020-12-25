@@ -2,3 +2,16 @@
 	height: 100vh;
 	background: linear-gradient(to right bottom, #6509e2 40%, #5a02b4 70%);
 }
+
+.sidebar-top-wrapper{
+	background-color: #060b26;
+	height: 80px;
+	display: flex;
+	position: relative;
+}
+.sidebar-top-wrapper-text{
+	position: absolute;
+	color: white;
+	font-size: 36px;
+	font-family: 'Inter', sans-serif;
+}

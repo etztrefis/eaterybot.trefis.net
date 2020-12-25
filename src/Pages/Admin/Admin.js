@@ -1,25 +1,12 @@
 import React from "react";
+import Sidebar from "../../Components/Sidebar/Sidebar";
 import "./Admin.css";
-import { HelmetProvider } from "react-helmet-async";
-import SideBar from "../../Components/Sidebar/Sidebar";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-function Admin(props) {
-	function logOut() {
-		localStorage.removeItem("tokens");
-		props.history.push("/");
-	}
-
+export default function AdminPage() {
 	return (
-		<HelmetProvider>
-			<Router>
-				<SideBar />
-				<Switch>
-					<Route path="/admin/home" />
-				</Switch>
-			</Router>
-		</HelmetProvider>
+		<div>
+			<Sidebar />
+			123
+		</div>
 	);
 }
-
-export default Admin;
