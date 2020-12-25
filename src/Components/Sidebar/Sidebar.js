@@ -11,6 +11,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import MenuIcon from "@material-ui/icons/Menu";
+import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import "../../Pages/Admin/Admin.css";
 
 const useStyles = makeStyles({
@@ -22,7 +23,7 @@ const useStyles = makeStyles({
 	},
 });
 
-export default function Sidebar() {
+function Sidebar(props) {
 	const classes = useStyles();
 	const [state, setState] = React.useState({
 		top: false,
@@ -30,6 +31,12 @@ export default function Sidebar() {
 		bottom: false,
 		right: false,
 	});
+
+	const logOut = (props) => {
+		localStorage.clear();
+		const { history } = this.props;
+		history.push("/login");
+	};
 
 	const toggleDrawer = (anchor, open) => (event) => {
 		if (
@@ -100,6 +107,20 @@ export default function Sidebar() {
 					</SwipeableDrawer>
 				</React.Fragment>
 			))}
+			{["right"].map(() => (
+				<React.Fragment key={"left"}>
+					<Button
+						onClick={logOut}
+						style={{
+							color: "white",
+						}}
+					>
+						{<PowerSettingsNewIcon />}
+					</Button>
+				</React.Fragment>
+			))}
 		</div>
 	);
 }
+
+export default Sidebar;
