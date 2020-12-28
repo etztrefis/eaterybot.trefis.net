@@ -104,6 +104,21 @@ function Signup(props) {
 		}
 	};
 
+	let mainHeight = "100vh";
+	let circlesHeight = "100vh";
+
+	if (
+		isError ||
+		isExists ||
+		isEmailValidateError ||
+		isPasswordTheSameError ||
+		isValidateError ||
+		isPasswordValidateError
+	) {
+		mainHeight = "140vh";
+		circlesHeight = "140vh";
+	}
+
 	function postSignup() {
 		setIsExists(false);
 		setIsError(false);
@@ -151,7 +166,7 @@ function Signup(props) {
 	return (
 		<HelmetProvider>
 			<div className="area">
-				<ul className="circles">
+				<ul className="circles" style={{ height: circlesHeight }}>
 					<li></li>
 					<li></li>
 					<li></li>
@@ -167,7 +182,7 @@ function Signup(props) {
 					<li></li>
 				</ul>
 			</div>
-			<div className="wrapper">
+			<div className="wrapper" style={{ height: mainHeight }}>
 				<div className="outer">
 					<div className="middle">
 						<div className="inner">
