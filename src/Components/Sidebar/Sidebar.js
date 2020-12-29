@@ -21,6 +21,13 @@ const useStyles = makeStyles({
 	fullList: {
 		width: "auto",
 	},
+	paper: {
+		background: "#060b26",
+		color: "white",
+	},
+	divider: {
+		background: "white",
+	},
 });
 
 function Sidebar(props) {
@@ -34,8 +41,7 @@ function Sidebar(props) {
 
 	const logOut = (props) => {
 		localStorage.clear();
-		const { history } = this.props;
-		history.push("/login");
+		window.location.reload();
 	};
 
 	const toggleDrawer = (anchor, open) => (event) => {
@@ -63,7 +69,7 @@ function Sidebar(props) {
 				{["Inbox", "Starred", "Send email", "Drafts"].map(
 					(text, index) => (
 						<ListItem button key={text}>
-							<ListItemIcon>
+							<ListItemIcon style={{ color: "white" }}>
 								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
 							</ListItemIcon>
 							<ListItemText primary={text} />
@@ -71,11 +77,11 @@ function Sidebar(props) {
 					)
 				)}
 			</List>
-			<Divider />
+			<Divider classes={{ root: classes.divider }} />
 			<List>
 				{["All mail", "Trash", "Spam"].map((text, index) => (
 					<ListItem button key={text}>
-						<ListItemIcon>
+						<ListItemIcon style={{ color: "white" }}>
 							{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
 						</ListItemIcon>
 						<ListItemText primary={text} />
@@ -102,6 +108,7 @@ function Sidebar(props) {
 						open={state["left"]}
 						onClose={toggleDrawer("left", false)}
 						onOpen={toggleDrawer("left", true)}
+						classes={{ paper: classes.paper }}
 					>
 						{list("left")}
 					</SwipeableDrawer>
@@ -113,6 +120,7 @@ function Sidebar(props) {
 						onClick={logOut}
 						style={{
 							color: "white",
+							marginLeft: "auto",
 						}}
 					>
 						{<PowerSettingsNewIcon />}
