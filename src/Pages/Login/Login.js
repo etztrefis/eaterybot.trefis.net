@@ -17,6 +17,7 @@ import {
 	Header,
 	Error,
 } from "../../Components/AuthForm/AuthForm.js";
+import cryptJS from "crypto-js";
 
 function Login(props) {
 	const eye = <FontAwesomeIcon icon={faEye} />;
@@ -34,13 +35,23 @@ function Login(props) {
 	async function postLogin() {
 		setIsError(false);
 
+		let crypt = "/";
+
+		do {
+			crypt = cryptJS.AES.encrypt(
+				password,
+				process.env.REACT_APP_CRYPT
+			).toString();
+		} while (crypt.indexOf("/") !== -1);
+
 		let apiResponse = null;
 		try {
 			apiResponse = await axios.get(
-				`http://localhost:8081/api/admins/${userName}/${password}` //CHANGE BEFORE BUILD
+				`http://localhost:8081/api/admins/${userName}/${crypt}` //CHANGE BEFORE BUILD
 			);
 		} catch (error) {
-			console.clear();
+			// console.clear();
+			console.error(error);
 			setIsError(true);
 		} finally {
 			if (apiResponse !== null) {
@@ -58,11 +69,6 @@ function Login(props) {
 
 	let mainHeight = "100vh";
 	let circlesHeight = "100vh";
-
-	if (isError) {
-		mainHeight = "140vh";
-		circlesHeight = "140vh";
-	}
 
 	return (
 		<HelmetProvider>

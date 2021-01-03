@@ -16,6 +16,7 @@ import {
 	Error,
 	Success,
 } from "../../Components/AuthForm/AuthForm.js";
+import cryptJS from "crypto-js";
 
 import "./Signup.css";
 
@@ -104,8 +105,8 @@ function Signup(props) {
 		}
 	};
 
-	let mainHeight = "100vh";
-	let circlesHeight = "100vh";
+	let mainHeight = "140vh";
+	let circlesHeight = "140vh";
 
 	if (
 		isError ||
@@ -123,6 +124,15 @@ function Signup(props) {
 		setIsExists(false);
 		setIsError(false);
 
+		let crypt = "/";
+
+		do {
+			crypt = cryptJS.AES.encrypt(
+				password,
+				process.env.REACT_APP_CRYPT
+			).toString();
+		} while (crypt.indexOf("/") !== -1);
+
 		setTimeout(async () => {
 			if (
 				!isPasswordTheSameError &&
@@ -136,9 +146,10 @@ function Signup(props) {
 						Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
 					},
 				};
+
 				try {
 					apiResponse = await axios.get(
-						`http://localhost:8081/api/admins/create/${userName}/${password}/${validateCode}`, //CHANGE BEFORE BUILD
+						`http://localhost:8081/api/admins/create/${userName}/${crypt}/${validateCode}`, //CHANGE BEFORE BUILD
 						config
 					);
 				} catch (error) {
