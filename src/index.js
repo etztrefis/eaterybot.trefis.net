@@ -9,9 +9,9 @@ import App from "./App";
 ReactDOM.render(
 	<BrowserRouter>
 		{" "}
-		<React.StrictMode>
+		<React.Fragment>
 			<App />
-		</React.StrictMode>
+		</React.Fragment>
 	</BrowserRouter>,
 	document.getElementById("root")
 );
