@@ -1,71 +1,130 @@
+.wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url(./images/wave.png);
+    background-size: 1000px 100px;
+}
+
+.wave.wave1 {
+    animation: waveanimate 30s linear infinite;
+    z-index: 1000;
+    opacity: 1;
+    animation-delay: 0s;
+    bottom: 5;
+}
+
+.wave.wave2 {
+    animation: waveanimate1 25s linear infinite;
+    z-index: 999;
+    opacity: 0.5;
+    animation-delay: -5s;
+    bottom: 15px;
+}
+
+.wave.wave3 {
+    animation: waveanimate1 30s linear infinite;
+    z-index: 998;
+    opacity: 0.2;
+    animation-delay: -2s;
+    bottom: 20px;
+}
+
+.wave.wave3 {
+    animation: waveanimate1 15s linear infinite;
+    z-index: 997;
+    opacity: 0.7;
+    animation-delay: -5s;
+    bottom: 25px;
+}
+
+
+@keyframes waveanimate {
+    0% {
+        background-position-x: 0;
+    }
+
+    100% {
+        background-position-x: 1000px;
+    }
+}
+
+@keyframes waveanimate1 {
+    0% {
+        background-position-x: 0;
+    }
+
+    100% {
+        background-position-x: -1000px;
+    }
+}
+
 .flex-container {
-  width: 100%;
-  height: 100vh;
-  height: 100vh;
-  background: linear-gradient(to right bottom, #6509e2 40%, #5a02b4 70%);
+    width: 100%;
+	height: 100vh;
+	overflow: hidden;
+    position: relative;
+    background: linear-gradient(to right bottom, #6509e2 40%, #5a02b4 70%);
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Chrome/Safari/Opera */
+    -khtml-user-select: none;
+    /* Konqueror */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
 }
 
-.focus-in-expand {
-  font-size: 20px;
-  color: antiquewhite;
-  position: absolute;
-  top: 200px;
-  -webkit-animation: text-focus-in 0.6s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
-  animation: text-focus-in 0.6s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+.left-side-text-component {
+    color: antiquewhite;
+    position: absolute;
+	top: 300px;
+	padding-left: 50px;
 }
 
-.focus-in-expand p {
-  font-size: 28px;
+.left-side-text-component-text {
+    font-size: 18px;
+}
+
+.left-side-text-component-header {
+    font-size: 40px;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.left-side-text-component-header-second {
+    font-size: 40px;
+    font-family: 'Inter', sans-serif;
+    margin-top: -20px;
+    padding: 0;
 }
 
 .vert-move {
-  box-shadow: 0px 10px 15px 1px rgba(65, 64, 64, 0.548);
-  position: absolute;
-  top: 200px;
-  animation-name: bounce-2;
-  animation-timing-function: ease;
-  animation-duration: 20s;
-  animation-iteration-count: infinite;
-}
-
-@-webkit-keyframes text-focus-in {
-  0% {
-    -webkit-filter: blur(12px);
-    filter: blur(12px);
-    opacity: 0;
-  }
-
-  100% {
-    -webkit-filter: blur(0px);
-    filter: blur(0px);
-    opacity: 1;
-  }
-}
-
-@keyframes text-focus-in {
-  0% {
-    -webkit-filter: blur(12px);
-    filter: blur(12px);
-    opacity: 0;
-  }
-
-  100% {
-    -webkit-filter: blur(0px);
-    filter: blur(0px);
-    opacity: 1;
-  }
+    box-shadow: 0px 10px 15px 1px rgba(65, 64, 64, 0.548);
+    position: absolute;
+    top: 200px;
+    animation-name: bounce-2;
+    animation-timing-function: ease;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
 }
 
 @keyframes bounce-2 {
-  0% {
-    transform: translateY(0);
-  }
+    0% {
+        transform: translateY(0);
+    }
 
-  50% {
-    transform: translateY(-100px);
-  }
+    50% {
+        transform: translateY(-100px);
+    }
 
-  100% {
-    transform: translateY(0);
-  }
+    100% {
+        transform: translateY(0);
+    }
 }
