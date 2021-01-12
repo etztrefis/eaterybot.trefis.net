@@ -16,6 +16,7 @@ import "./Third.css";
 function Third() {
 	return (
 		<div className="third-main">
+			<div className="oval"></div>
 			<Container style={{ paddingTop: "50px" }}>
 				<Row>
 					<Col xs={6} md={4}>

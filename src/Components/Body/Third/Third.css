@@ -64,3 +64,16 @@
     height: 2px;
 
 }
+
+.oval {
+
+    position: absolute;
+    top: 0;
+    height: 30px;
+	width: 100%;
+	background-color: white;
+    border-width: 0 1px 1px 1px;
+    border-radius: 50% / 100%;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
