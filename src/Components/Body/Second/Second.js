@@ -11,24 +11,17 @@ function Second() {
 			<Row>
 				<Col>
 					<div className="second-main">
-						<div
-							className="text-main-div"
-							style={{ paddingTop: "50px" }}
-						>
+						<div className="text-main-div">
 							<Zoom left cascade>
 								<div>
 									<p className="text-header">
-										Чат-бот EateryBot
+										ЧАТ-БОТ EATERYBOT
 									</p>
-									<p className="text-text">Практичность ⚙ </p>
-									<p className="text-text">Надежность 🔒</p>
-									<p className="text-text">Безопасность</p>
 									<p className="text-text">
-										Открытый исходный код 🔧
-									</p>
-									<p className="text-text">Безопасность 🔑</p>
-									<p className="text-text">
-										fsdfasdfasdfasdfasdf Okayeg
+										Разработан в социальной сети «ВКонтатке»
+										для оптимизации работы столовой и
+										оптимизации расходов на питание <br />
+										сотрудников организации.
 									</p>
 								</div>
 							</Zoom>
