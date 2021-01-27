@@ -38,7 +38,7 @@ export default class ProgressBar extends Component {
 
 		const progressStyle = {
 			height: "5px",
-			background: "#8E0C31",
+			background: "antiquewhite",
 			width: this.state.scroll,
 		};
 
