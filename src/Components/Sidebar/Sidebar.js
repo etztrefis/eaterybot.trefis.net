@@ -8,9 +8,16 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import GroupIcon from "@material-ui/icons/Group";
 import MenuIcon from "@material-ui/icons/Menu";
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
+import MenuBookIcon from "@material-ui/icons/MenuBook";
+import EqualizerIcon from "@material-ui/icons/Equalizer";
+import CropFreeIcon from "@material-ui/icons/CropFree";
+import SubjectIcon from "@material-ui/icons/Subject";
+import LocalPizzaIcon from "@material-ui/icons/LocalPizza";
+import FastfoodIcon from "@material-ui/icons/Fastfood";
+import EventNoteIcon from "@material-ui/icons/EventNote";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import "../../Pages/Admin/Admin.css";
 
@@ -27,6 +34,10 @@ const useStyles = makeStyles({
 	},
 	divider: {
 		background: "white",
+	},
+	upper_divider: {
+		background: "white",
+		marginTop: "10px",
 	},
 });
 
@@ -65,28 +76,61 @@ function Sidebar(props) {
 			onClick={toggleDrawer(anchor, false)}
 			onKeyDown={toggleDrawer(anchor, false)}
 		>
+			<Divider classes={{ root: classes.upper_divider }} />
 			<List>
-				{["Inbox", "Starred", "Send email", "Drafts"].map(
-					(text, index) => (
-						<ListItem button key={text}>
-							<ListItemIcon style={{ color: "white" }}>
-								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-							</ListItemIcon>
-							<ListItemText primary={text} />
-						</ListItem>
-					)
-				)}
+				<ListItem button>
+					<ListItemIcon style={{ color: "white" }}>
+						<AccountBoxIcon />
+					</ListItemIcon>
+					<ListItemText primary="Профиль" />
+				</ListItem>
+
+				<ListItem button>
+					<ListItemIcon style={{ color: "white" }}>
+						<EqualizerIcon />
+					</ListItemIcon>
+					<ListItemText primary="Статистика заказов" />
+				</ListItem>
+				<ListItem button>
+					<ListItemIcon style={{ color: "white" }}>
+						<GroupIcon />
+					</ListItemIcon>
+					<ListItemText primary="Пользователи" />
+				</ListItem>
+				<ListItem button>
+					<ListItemIcon style={{ color: "white" }}>
+						<MenuBookIcon />
+					</ListItemIcon>
+					<ListItemText primary="Меню" />
+				</ListItem>
+
+				<ListItem button>
+					<ListItemIcon style={{ color: "white" }}>
+						<CropFreeIcon />
+					</ListItemIcon>
+					<ListItemText primary="QR-коды" />
+				</ListItem>
 			</List>
 			<Divider classes={{ root: classes.divider }} />
 			<List>
-				{["All mail", "Trash", "Spam"].map((text, index) => (
-					<ListItem button key={text}>
-						<ListItemIcon style={{ color: "white" }}>
-							{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-						</ListItemIcon>
-						<ListItemText primary={text} />
-					</ListItem>
-				))}
+				<ListItem button>
+					<ListItemIcon style={{ color: "white" }}>
+						<SubjectIcon />
+					</ListItemIcon>
+					<ListItemText primary="Расходы" />
+				</ListItem>
+				<ListItem button>
+					<ListItemIcon style={{ color: "white" }}>
+						<FastfoodIcon />
+					</ListItemIcon>
+					<ListItemText primary="Блюда" />
+				</ListItem>
+				<ListItem button>
+					<ListItemIcon style={{ color: "white" }}>
+						<LocalPizzaIcon />
+					</ListItemIcon>
+					<ListItemText primary="Продукты" />
+				</ListItem>
 			</List>
 		</div>
 	);
