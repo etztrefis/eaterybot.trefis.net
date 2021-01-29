@@ -5,18 +5,17 @@ import Third from "./Third/Third.js";
 import Fourth from "./Fourth/Fourth.js";
 
 function Body() {
-	return (
-		<div>
-			<div id="home">
-				<First />
-			</div>
-			<div id="middle">
-				<Second />
-			</div>
-			<Third />
-			<Fourth />
-		</div>
-	);
+  return (
+    <div>
+      <div id="home">
+        <First />
+      </div>
+      <div id="middle"></div>
+      <Second />
+      <Third />
+      <Fourth />
+    </div>
+  );
 }
 
 export default Body;
