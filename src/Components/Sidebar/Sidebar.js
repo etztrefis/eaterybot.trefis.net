@@ -17,8 +17,8 @@ import CropFreeIcon from "@material-ui/icons/CropFree";
 import SubjectIcon from "@material-ui/icons/Subject";
 import LocalPizzaIcon from "@material-ui/icons/LocalPizza";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
-import EventNoteIcon from "@material-ui/icons/EventNote";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
+import { useHistory } from "react-router-dom";
 import "../../Pages/Admin/Admin.css";
 
 const useStyles = makeStyles({
@@ -42,6 +42,7 @@ const useStyles = makeStyles({
 });
 
 function Sidebar(props) {
+	const [isStats, setStats] = React.useState(false);
 	const classes = useStyles();
 	const [state, setState] = React.useState({
 		top: false,
@@ -49,7 +50,11 @@ function Sidebar(props) {
 		bottom: false,
 		right: false,
 	});
-
+	// if(isStats){
+	// 	let history = useHistory();
+	// 	history.push('/stats');
+	// }
+		
 	const logOut = (props) => {
 		localStorage.clear();
 		window.location.reload();
@@ -66,7 +71,7 @@ function Sidebar(props) {
 
 		setState({ ...state, [anchor]: open });
 	};
-
+	
 	const list = (anchor) => (
 		<div
 			className={clsx(classes.list, {
@@ -78,14 +83,13 @@ function Sidebar(props) {
 		>
 			<Divider classes={{ root: classes.upper_divider }} />
 			<List>
-				<ListItem button>
+				<ListItem button >
 					<ListItemIcon style={{ color: "white" }}>
 						<AccountBoxIcon />
 					</ListItemIcon>
 					<ListItemText primary="Профиль" />
 				</ListItem>
-
-				<ListItem button>
+				<ListItem button onClick={setStats}>
 					<ListItemIcon style={{ color: "white" }}>
 						<EqualizerIcon />
 					</ListItemIcon>
