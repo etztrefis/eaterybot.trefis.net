@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 		width: "auto",
 	},
 	paper: {
-		background: "#060b26",
+		backgroundColor:"rgba(0, 0, 0, 0.767)",
 		color: "white",
 	},
 	divider: {
