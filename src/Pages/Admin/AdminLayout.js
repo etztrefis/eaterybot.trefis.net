@@ -1,111 +1,85 @@
 import React from "react";
-import PropTypes from "prop-types";
-import _ from "lodash";
-import { Responsive, WidthProvider } from "react-grid-layout";
-const ResponsiveReactGridLayout = WidthProvider(Responsive);
+import { WidthProvider, Responsive } from "react-grid-layout";
 
-export default class AdminLayout extends React.Component {
+const ResponsiveReactGridLayout = WidthProvider(Responsive);
+const originalLayouts = getFromLS("layouts") || {};
+
+
+export default class ResponsiveLocalStorageLayout extends React.PureComponent {
   constructor(props) {
     super(props);
+
     this.state = {
-      currentBreakpoint: "lg",
-      compactType: "vertical",
-      mounted: false,
-      layouts: { lg: props.initialLayout },
+      layouts: JSON.parse(JSON.stringify(originalLayouts))
     };
-
-    this.onBreakpointChange = this.onBreakpointChange.bind(this);
-    this.onCompactTypeChange = this.onCompactTypeChange.bind(this);
-    this.onLayoutChange = this.onLayoutChange.bind(this);
-    this.onNewLayout = this.onNewLayout.bind(this);
   }
 
-  componentDidMount() {
-    this.setState({ mounted: true });
+  static get defaultProps() {
+    return {
+      className: "layout",
+      cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
+      rowHeight: 30
+    };
   }
 
-  generateDOM() {
-    return _.map(this.state.layouts.lg, function (l, i) {
-      return (
-        <div key={i} className={l.static ? "static" : ""}>
-          <span className="text">{i}</span>
-        </div>
-      );
-    });
-  }
-
-  onBreakpointChange(breakpoint) {
-    this.setState({
-      currentBreakpoint: breakpoint,
-    });
-  }
-
-  onCompactTypeChange() {
-    const { compactType: oldCompactType } = this.state;
-    const compactType =
-      oldCompactType === "horizontal"
-        ? "vertical"
-        : oldCompactType === "vertical"
-        ? null
-        : "horizontal";
-    this.setState({ compactType });
+  resetLayout() {
+    this.setState({ layouts: {} });
   }
 
   onLayoutChange(layout, layouts) {
-    this.props.onLayoutChange(layout, layouts);
-  }
-
-  onNewLayout() {
-    this.setState({
-      layouts: { lg: getLayout() },
-    });
+    saveToLS("layouts", layouts);
+    this.setState({ layouts });
   }
 
   render() {
     return (
       <div>
         <ResponsiveReactGridLayout
-          {...this.props}
+          className="layout"
+          cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
+          rowHeight={30}
           layouts={this.state.layouts}
-          onBreakpointChange={this.onBreakpointChange}
-          onLayoutChange={this.onLayoutChange}
-          // WidthProvider option
-          measureBeforeMount={false}
-          // I like to have it animate on mount. If you don't, delete `useCSSTransforms` (it's default `true`)
-          // and set `measureBeforeMount={true}`.
-          useCSSTransforms={this.state.mounted}
-          compactType={this.state.compactType}
-          preventCollision={!this.state.compactType}
+          onLayoutChange={(layout, layouts) =>
+            this.onLayoutChange(layout, layouts)
+          }
         >
-          {this.generateDOM()}
+          <div key="1" data-grid={{ w: 6, h: 8, x: 0, y: 0, static:true}}>
+            <span className="text">1</span>
+          </div>
+          <div key="2" data-grid={{ w: 6, h: 8, x: 0, y: 1 }}>
+            <span className="text">2</span>
+          </div>
+          <div key="3" data-grid={{ w: 6, h: 8, x: 6, y: 0 }}>
+            <span className="text">3</span>
+          </div>
+          <div key="4" data-grid={{ w: 6, h: 8, x: 6, y: 1 }}>
+            <span className="text">4</span>
+          </div>
         </ResponsiveReactGridLayout>
       </div>
     );
   }
 }
 
-AdminLayout.propTypes = {
-  onLayoutChange: PropTypes.func.isRequired,
-};
+function getFromLS(key) {
+  let ls = {};
+  if (global.localStorage) {
+    try {
+      ls = JSON.parse(global.localStorage.getItem("rgl-8")) || {};
+    } catch (e) {
+      /*Ignore*/
+    }
+  }
+  return ls[key];
+}
 
-AdminLayout.defaultProps = {
-  className: "layout",
-  rowHeight: 30,
-  onLayoutChange: function () {},
-  cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
-  initialLayout: getLayout(),
-};
-
-function getLayout() {
-  return _.map(_.range(0, 10), function (item, i) {
-    var y = Math.ceil(Math.random() * 4) + 1;
-    return {
-      x: (_.random(0, 5) * 2) % 12,
-      y: Math.floor(i / 6) * y,
-      w: 2,
-      h: y,
-      i: i.toString(),
-      static: false,
-    };
-  });
+function saveToLS(key, value) {
+  if (global.localStorage) {
+    global.localStorage.setItem(
+      "rgl-8",
+      JSON.stringify({
+        [key]: value
+      })
+    );
+  }
 }
