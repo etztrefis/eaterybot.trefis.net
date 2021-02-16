@@ -18,7 +18,7 @@ import SubjectIcon from "@material-ui/icons/Subject";
 import LocalPizzaIcon from "@material-ui/icons/LocalPizza";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 import "../../Pages/Admin/Admin.css";
 
 const useStyles = makeStyles({
@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 		width: "auto",
 	},
 	paper: {
-		backgroundColor:"rgba(0, 0, 0, 0.767)",
+		backgroundColor: "rgba(0, 0, 0, 0.767)",
 		color: "white",
 	},
 	divider: {
@@ -42,7 +42,7 @@ const useStyles = makeStyles({
 });
 
 function Sidebar(props) {
-	const [isStats, setStats] = React.useState(false);
+	let history = useHistory();
 	const classes = useStyles();
 	const [state, setState] = React.useState({
 		top: false,
@@ -50,11 +50,7 @@ function Sidebar(props) {
 		bottom: false,
 		right: false,
 	});
-	// if(isStats){
-	// 	let history = useHistory();
-	// 	history.push('/stats');
-	// }
-		
+
 	const logOut = (props) => {
 		localStorage.clear();
 		window.location.reload();
@@ -71,7 +67,7 @@ function Sidebar(props) {
 
 		setState({ ...state, [anchor]: open });
 	};
-	
+
 	const list = (anchor) => (
 		<div
 			className={clsx(classes.list, {
@@ -83,13 +79,13 @@ function Sidebar(props) {
 		>
 			<Divider classes={{ root: classes.upper_divider }} />
 			<List>
-				<ListItem button >
+				<ListItem button onClick={() => history.push("/admin")}>
 					<ListItemIcon style={{ color: "white" }}>
 						<AccountBoxIcon />
 					</ListItemIcon>
 					<ListItemText primary="Профиль" />
 				</ListItem>
-				<ListItem button onClick={setStats}>
+				<ListItem button onClick={() => history.push("/admin/stats")}>
 					<ListItemIcon style={{ color: "white" }}>
 						<EqualizerIcon />
 					</ListItemIcon>
@@ -129,7 +125,7 @@ function Sidebar(props) {
 					</ListItemIcon>
 					<ListItemText primary="Блюда" />
 				</ListItem>
-				<ListItem button>
+				<ListItem button onClick={() => history.push("/admin/products")}>
 					<ListItemIcon style={{ color: "white" }}>
 						<LocalPizzaIcon />
 					</ListItemIcon>
