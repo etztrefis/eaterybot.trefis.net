@@ -12,29 +12,26 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 
         this.state = {
             layouts: JSON.parse(JSON.stringify(originalLayouts)),
-            data: []
+            data: [],
+            isLoaded: false
         };
-
-        this.test = {
-            method: 'get',
-            url: '192.168.0.87:8082/api/products',
-            headers: {
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJoZWxsbyB0aGVyZSIsIm5hbWUiOiJBZXggVHJlZmlzIiwiaWF0IjoxNTE2MjM5MDIyfQ.B5EXggWQrnAl3tIdWSKifuf1OrUAS3jEM4cpWUV6eFA'
-            }
-        }
     }
 
     componentDidMount() {
-        this.getProducts()
+        let resp = this.getProducts({headers: {Authorization : `Bearer ${process.env.REACT_APP_API_KEY}`}});
+        this.setState({
+            isLoaded: true,
+            data: resp
+        })
+        console.log(this.state.data);
     }
 
-    async getProducts() {
-        const apiResponse = await axios.get(this.test);
-        console.log(apiResponse);
-        await axios.get(`https://api.github.com/repos/etztrefis/feelsokayegbot/commits`)
+    getProducts = this.getProductsAsync;
+
+    async getProductsAsync(conf) {
+        await axios.get('http://92.168.0.87:8082/api/products/', conf)
             .then(response => {
-                console.log(1);
-                this.setState({ data: response.data });
+                return response;
             })
             .catch(error => {
                 console.error(error);
@@ -89,7 +86,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                     { title: 'Количество', field: 'Amount', type: 'numeric' },
                                     { title: 'Единица измерения', field: 'MeasurmentUnits' },
                                 ]}
-                                data={this.state.data}
+                                // data={this.state.data}
                                 options={{
                                     selection: true,
                                 }}
