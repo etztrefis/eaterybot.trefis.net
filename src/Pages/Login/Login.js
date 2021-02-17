@@ -46,8 +46,9 @@ function Login(props) {
 
 		let apiResponse = null;
 		try {
+			const server = `${process.env.REACT_APP_API_SERVER}`;
 			apiResponse = await axios.get(
-				`http://localhost:8081/api/admins/${userName}/${crypt}` //CHANGE BEFORE BUILD
+				`${server}admins/${userName}/${crypt}` //CHANGE BEFORE BUILD
 			);
 		} catch (error) {
 			// console.clear();
