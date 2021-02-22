@@ -89,7 +89,7 @@ function Sidebar(props) {
 					<ListItemIcon style={{ color: "white" }}>
 						<EqualizerIcon />
 					</ListItemIcon>
-					<ListItemText primary="Статистика заказов" />
+					<ListItemText primary="Статистика" />
 				</ListItem>
 				<ListItem button>
 					<ListItemIcon style={{ color: "white" }}>
@@ -103,27 +103,20 @@ function Sidebar(props) {
 					</ListItemIcon>
 					<ListItemText primary="Меню" />
 				</ListItem>
-
-				<ListItem button>
+				{/* <ListItem button>
 					<ListItemIcon style={{ color: "white" }}>
 						<CropFreeIcon />
 					</ListItemIcon>
 					<ListItemText primary="QR-коды" />
-				</ListItem>
+				</ListItem> */}
 			</List>
 			<Divider classes={{ root: classes.divider }} />
 			<List>
-				<ListItem button>
-					<ListItemIcon style={{ color: "white" }}>
-						<SubjectIcon />
-					</ListItemIcon>
-					<ListItemText primary="Расходы" />
-				</ListItem>
-				<ListItem button>
+				<ListItem button onClick={() => history.push("/admin/dishes")}>
 					<ListItemIcon style={{ color: "white" }}>
 						<FastfoodIcon />
 					</ListItemIcon>
-					<ListItemText primary="Блюда" />
+					<ListItemText primary="Блюда и составы" />
 				</ListItem>
 				<ListItem button onClick={() => history.push("/admin/products")}>
 					<ListItemIcon style={{ color: "white" }}>
