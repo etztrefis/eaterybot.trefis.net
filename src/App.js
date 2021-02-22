@@ -5,6 +5,7 @@ import AdminPage from './Pages/Admin/Admin.js';
 import Login from './Pages/Login/Login.js';
 import Signup from './Pages/Signup/Signup.js';
 import Stats from './Pages/Admin/Stats/Stats.js';
+import Dishes from './Pages/Admin/Dishes/Dishes.js'
 import Products from './Pages/Admin/Products/Products.js';
 import {AuthContext} from './context/auth.js';
 import PrivateRoute from './Routes/PrivateRoute.js';
@@ -29,6 +30,7 @@ function App(props) {
                     <PrivateRoute exact path="/admin/" component={AdminPage} />
                     <PrivateRoute path="/admin/stats" component={Stats} />
                     <PrivateRoute path="/admin/products" component={Products} />
+                    <PrivateRoute path="/admin/dishes" component={Dishes} />
                 </div>
             </Router>
         </AuthContext.Provider>
