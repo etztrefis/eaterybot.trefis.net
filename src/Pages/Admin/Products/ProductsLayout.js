@@ -15,17 +15,29 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
         this.state = {
             layouts: JSON.parse(JSON.stringify(originalLayouts)),
             data: [],
+            lessData: []
         };
     }
 
     async componentDidMount() {
         this._isMounted = true;
         const server = `${process.env.REACT_APP_API_SERVER}products/`;
+        const secondServer = `${process.env.REACT_APP_API_SERVER}products/less`;
         await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
             .then(response => {
                 if (this._isMounted) {
                     this.setState({
                         data: response.data.message
+                    })
+                }
+            }).catch(error => {
+                console.log(error);
+            })
+        await axios.get(secondServer, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
+            .then(response => {
+                if (this._isMounted) {
+                    this.setState({
+                        lessData: response.data.message
                     })
                 }
             }).catch(error => {
@@ -66,121 +78,178 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                         this.onLayoutChange(layout, layouts)
                     }
                 >
-                    <div key="2" data-grid={{ w: 5, h: 8, x: 0, y: 0 }}>
-                        <span className="text">Логи</span>
+                    <div key="2" data-grid={{ w: 6, h: 26, x: 0, y: 0, static: true }}>
+                        <MaterialTable
+                            title="Продукты, которые необходимо закупить"
+                            tableRef={tableRef}
+                            data={this.state.lessData}
+                            columns={[
+                                { title: 'ID', field: 'ProductID', },
+                                { title: 'Название', field: 'Name' },
+                                {
+                                    title: 'Количество', field: 'Amount', type: 'numeric',
+                                    cellStyle: {
+                                        backgroundColor: '#ffe3e6',
+                                        color: 'black'
+                                    },
+                                },
+                                { title: 'Единица измерения', field: 'MeasurmentUnits', lookup: { "шт.": "шт.", "кг.": "кг.", "литр.": "литр." } },
+                            ]}
+                            options={{
+                                draggable: false,
+                                paging: true,
+                                pageSize: 15,
+                                emptyRowsWhenPaging: false,
+                                pageSizeOptions: [15, 30, 60, 90],
+                            }}
+                            localization={{
+                                header: {
+                                    actions: "Действия"
+                                },
+                                toolbar: {
+                                    searchPlaceholder: "Поиск",
+                                    searchTooltip: "Поиск",
+                                    nRowsSelected: "{0} строк(и) выбрано",
+                                },
+                                pagination: {
+                                    labelDisplayedRows: "{from}-{to} из {count}",
+                                    labelRowsSelect: "строк",
+                                    firstTooltip: "Первая страница",
+                                    previousTooltip: "Предыдущая страница",
+                                    nextTooltip: "Следующая страница",
+                                    lastTooltip: "Последняя страница"
+                                },
+                                body: {
+                                    addTooltip: "Новая запись",
+                                    deleteTooltip: "Удалить",
+                                    editTooltip: "Изменить",
+                                    editRow: {
+                                        deleteText: "Вы уверены, что хотите удалить эту запись?",
+                                        saveTooltip: "Сохранить",
+                                        cancelTooltip: "Отмена"
+                                    }
+                                }
+                            }}
+                        />
                     </div>
-                    <div key="3" data-grid={{ w: 7, h: 18, x: 5, y: 0, static: true }}>
-                        <span className="text">
-                            <MaterialTable
-                                title="Продукты"
-                                tableRef={tableRef}
-                                data={this.state.data}
-                                columns={[
-                                    { title: 'ID', field: 'ProductID' },
-                                    { title: 'Имя', field: 'Name' },
-                                    { title: 'Количество', field: 'Amount', type: 'numeric' },
-                                    { title: 'Единица измерения', field: 'MeasurmentUnits', lookup: { "шт.": "шт.", "кг.": "кг.", "литр.": "литр." } },
-                                ]}
-                                options={{
-                                    paging: true,
-                                    pageSize: 15,
-                                    emptyRowsWhenPaging: false,
-                                    pageSizeOptions: [15, 30, 60, 90],
-                                }}
-                                localization={{
-                                    header: {
-                                        actions: "Действия"
-                                    },
-                                    toolbar: {
-                                        searchPlaceholder: "Поиск",
-                                        searchTooltip: "Поиск",
-                                        nRowsSelected: "{0} строк(и) выбрано",
-                                    },
-                                    pagination: {
-                                        labelDisplayedRows: "{from}-{to} из {count}",
-                                        labelRowsSelect: "строк",
-                                        firstTooltip: "Первая страница",
-                                        previousTooltip: "Предыдущая страница",
-                                        nextTooltip: "Следующая страница",
-                                        lastTooltip: "Последняя страница"
-                                    },
-                                    body: {
-                                        addTooltip: "Новая запись",
-                                        deleteTooltip: "Удалить",
-                                        editTooltip: "Изменить",
-                                        editRow: {
-                                            deleteText: "Вы уверены, что хотите удалить эту запись?",
-                                            saveTooltip: "Сохранить",
-                                            cancelTooltip: "Отмена"
-                                        }
+                    <div key="3" data-grid={{ w: 6, h: 26, x: 6, y: 0, static: true }}>
+                        <MaterialTable
+                            title="Все продукты"
+                            tableRef={tableRef}
+                            data={this.state.data}
+                            columns={[
+                                { title: 'ID', field: 'ProductID' },
+                                { title: 'Название', field: 'Name' },
+                                { title: 'Количество', field: 'Amount', type: 'numeric' },
+                                { title: 'Единица измерения', field: 'MeasurmentUnits', lookup: { "шт.": "шт.", "кг.": "кг.", "литр.": "литр." } },
+                            ]}
+                            options={{
+                                draggable: false,
+                                paging: true,
+                                pageSize: 15,
+                                emptyRowsWhenPaging: false,
+                                pageSizeOptions: [15, 30, 60, 90],
+                                addRowPosition: 'first'
+                            }}
+                            localization={{
+                                header: {
+                                    actions: "Действия"
+                                },
+                                toolbar: {
+                                    searchPlaceholder: "Поиск",
+                                    searchTooltip: "Поиск",
+                                    nRowsSelected: "{0} строк(и) выбрано",
+                                },
+                                pagination: {
+                                    labelDisplayedRows: "{from}-{to} из {count}",
+                                    labelRowsSelect: "строк",
+                                    firstTooltip: "Первая страница",
+                                    previousTooltip: "Предыдущая страница",
+                                    nextTooltip: "Следующая страница",
+                                    lastTooltip: "Последняя страница"
+                                },
+                                body: {
+                                    addTooltip: "Новая запись",
+                                    deleteTooltip: "Удалить",
+                                    editTooltip: "Изменить",
+                                    editRow: {
+                                        deleteText: "Вы уверены, что хотите удалить эту запись?",
+                                        saveTooltip: "Сохранить",
+                                        cancelTooltip: "Отмена"
                                     }
-                                }}
-                                editable={{
-                                    onRowAdd: async (newData) => {
-                                        if (newData.Name !== undefined && newData.Amount !== undefined && newData.MeasurmentUnits !== undefined) {
-                                            const server = `${process.env.REACT_APP_API_SERVER}products/create/${newData.Name}/${newData.Amount}/${newData.MeasurmentUnits}`;
-                                            await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
-                                                .then(response => {
-                                                    if (response.status == 200) {
-                                                        this.componentDidMount();
-                                                    } else {
-                                                        console.error('404 error ' + response);
-                                                    }
-                                                })
-                                                .catch(error => {
-                                                    console.error(error);
-                                                })
-                                        } else {
-                                            alert("Для создания новой записи необходимо заполнить все поля.");
-                                        }
-                                        new Promise((resolve, reject) => {
-                                            setTimeout(() => {
-                                                resolve()
-                                            }, 1000)
-                                        })
-                                    },
-                                    onRowUpdate: async (newData, oldData) => {
-                                        const server = `${process.env.REACT_APP_API_SERVER}products/update/${newData.ProductID}/${newData.Name}/${newData.Amount}/${newData.MeasurmentUnits}`;
+                                }
+                            }}
+                            editable={{
+                                onRowAdd: async (newData) => {
+                                    if (newData.Name !== undefined && newData.Amount !== undefined && newData.MeasurmentUnits !== undefined) {
+                                        const server = `${process.env.REACT_APP_API_SERVER}products/create/${newData.Name}/${newData.Amount}/${newData.MeasurmentUnits}`;
                                         await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                             .then(response => {
                                                 if (response.status == 200) {
                                                     this.componentDidMount();
                                                 } else {
                                                     console.error('404 error ' + response);
+                                                    alert(`Ошибка при получении ответа от сервера: ${response.data.message}`)
                                                 }
                                             })
                                             .catch(error => {
                                                 console.error(error);
+                                                alert(`Ошибка во время исполнения: ${error}`);
                                             })
-                                        new Promise((resolve, reject) => {
-                                            setTimeout(() => {
-                                                resolve()
-                                            }, 1000)
-                                        })
-                                    },
-                                    onRowDelete: async (oldData) => {
-                                        const server = `${process.env.REACT_APP_API_SERVER}products/delete/${oldData.ProductID}`;
-                                        await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
-                                            .then(response => {
-                                                if (response.status == 200) {
-                                                    this.componentDidMount();
-                                                } else {
-                                                    console.error('404 error ' + response);
-                                                }
-                                            })
-                                            .catch(error => {
-                                                console.error(error);
-                                            })
-                                        new Promise((resolve, reject) => {
-                                            setTimeout(() => {
-                                                resolve()
-                                            }, 1000)
-                                        })
+                                    } else {
+                                        alert("Для создания новой записи необходимо заполнить все поля.");
                                     }
+                                    new Promise((resolve, reject) => {
+                                        setTimeout(() => {
+                                            resolve()
+                                        }, 1000)
+                                    })
+                                },
+                                onRowUpdate: async (newData, oldData) => {
+                                    const server = `${process.env.REACT_APP_API_SERVER}products/update/${newData.ProductID}/${newData.Name}/${newData.Amount}/${newData.MeasurmentUnits}`;
+                                    await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
+                                        .then(response => {
+                                            if (response.status == 200) {
+                                                this.componentDidMount();
+                                            } else {
+                                                console.error('404 error ' + response);
+                                                alert(`Ошибка при получении ответа от сервера: ${response.data.message}`)
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.error(error);
+                                            alert(`Ошибка во время исполнения: ${error}`);
+                                        })
+                                    new Promise((resolve, reject) => {
+                                        setTimeout(() => {
+                                            resolve()
+                                        }, 1000)
+                                    })
+                                },
+                                onRowDelete: async (oldData) => {
+                                    const server = `${process.env.REACT_APP_API_SERVER}products/delete/${oldData.ProductID}`;
+                                    await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
+                                        .then(response => {
+                                            if (response.status == 200) {
+                                                this.componentDidMount();
+                                            } else {
+                                                console.error('404 error ' + response);
+                                                alert(`Ошибка при получении ответа от сервера: ${response.data.message}`)
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.error(error);
+                                            alert(`Ошибка во время исполнения: ${error}`);
+                                        })
+                                    new Promise((resolve, reject) => {
+                                        setTimeout(() => {
+                                            resolve()
+                                        }, 1000)
+                                    })
                                 }
-                                }
-                            />
-                        </span>
+                            }
+                            }
+                        />
                     </div>
                 </ResponsiveReactGridLayout>
             </div>
