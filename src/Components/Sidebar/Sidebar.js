@@ -101,7 +101,7 @@ function Sidebar(props) {
 					<ListItemIcon style={{ color: "white" }}>
 						<MenuBookIcon />
 					</ListItemIcon>
-					<ListItemText primary="Меню" />
+					<ListItemText primary="Заказы и меню" />
 				</ListItem>
 				{/* <ListItem button>
 					<ListItemIcon style={{ color: "white" }}>

@@ -31,6 +31,7 @@ function App(props) {
                     <PrivateRoute path="/admin/stats" component={Stats} />
                     <PrivateRoute path="/admin/products" component={Products} />
                     <PrivateRoute path="/admin/dishes" component={Dishes} />
+                    <PrivateRoute path="/admin/orders" component={Dishes} />
                 </div>
             </Router>
         </AuthContext.Provider>
