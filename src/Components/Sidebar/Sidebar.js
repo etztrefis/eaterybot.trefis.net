@@ -13,8 +13,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
 import EqualizerIcon from "@material-ui/icons/Equalizer";
-import CropFreeIcon from "@material-ui/icons/CropFree";
-import SubjectIcon from "@material-ui/icons/Subject";
 import LocalPizzaIcon from "@material-ui/icons/LocalPizza";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
@@ -97,18 +95,12 @@ function Sidebar(props) {
 					</ListItemIcon>
 					<ListItemText primary="Пользователи" />
 				</ListItem>
-				<ListItem button>
+				<ListItem button onClick={() => history.push("/admin/orders")}>
 					<ListItemIcon style={{ color: "white" }}>
 						<MenuBookIcon />
 					</ListItemIcon>
 					<ListItemText primary="Заказы и меню" />
 				</ListItem>
-				{/* <ListItem button>
-					<ListItemIcon style={{ color: "white" }}>
-						<CropFreeIcon />
-					</ListItemIcon>
-					<ListItemText primary="QR-коды" />
-				</ListItem> */}
 			</List>
 			<Divider classes={{ root: classes.divider }} />
 			<List>
@@ -127,7 +119,6 @@ function Sidebar(props) {
 			</List>
 		</div>
 	);
-
 	return (
 		<div className="sidebar-top-wrapper">
 			{["left"].map(() => (
