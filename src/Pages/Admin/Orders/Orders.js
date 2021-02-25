@@ -34,7 +34,7 @@ export default class Dishes extends React.Component {
 
     render() {
         return (
-            <div className="dishes-main">
+            <div className="orders-main">
                 <Modal show={this.state.show} onHide={this.handleClose} size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered>
@@ -42,12 +42,10 @@ export default class Dishes extends React.Component {
                         <Modal.Title id="example-modal-sizes-title-lg">Правила заполнения таблиц</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        Будьте внимательны к правильному заполнению данных во время совершения действий при работе с записями в таблице!
-                        <br/>
                         <ul style={{paddingLeft:"15px"}}>
-                            <li>Для создания или обновления записи необходимо заполнить <b>все поля</b>.</li>
-                            <li>Действительные числа всегда записываются с помощью точки. Например, 3.14</li>
-                            <li>При создании нового состава внимательно заполняйте поле "Название" в соответсвии с таблицей <a href="/admin/products">продуктов</a>.</li>
+                            <li>Необходимо помнить, что таблица заказов <b>сама</b> обновляется в 7:00 каждого дня.</li>
+                            <li>Составлять новое меню необходимо каждую неделю в пятнцу после 13:00 или в остальные дни до понедельника.</li>
+                            <li>Если Вы случайно очистите меню - данные <b>нельзя</b> будет вернуть.</li>
                         </ul> 
                     </Modal.Body>
                     <Modal.Footer>
@@ -57,12 +55,12 @@ export default class Dishes extends React.Component {
                     </Modal.Footer>
                 </Modal>
                 <Sidebar />
-                {/* <DishesLayout onLayoutChange={this.onLayoutChange} /> */}
+                <OrdersLayout onLayoutChange={this.onLayoutChange} />
             </div>
         );
     }
 }
 
-const disehsDiv = document.getElementById('root');
+const ordersDiv = document.getElementById('root');
 const gridProps = window.gridProps || {};
-// ReactDOM.render(React.createElement(DishesLayout, gridProps), disehsDiv);
+ReactDOM.render(React.createElement(OrdersLayout, gridProps), ordersDiv);
