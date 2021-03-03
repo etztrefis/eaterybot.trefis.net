@@ -47,8 +47,13 @@ function Login(props) {
 		let apiResponse = null;
 		try {
 			const server = `${process.env.REACT_APP_API_SERVER}`;
+			const config = {
+				headers: {
+					Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
+				},
+			};
 			apiResponse = await axios.get(
-				`${server}admins/${userName}/${crypt}` //CHANGE BEFORE BUILD
+				`${server}admins/${userName}/${crypt}`, config
 			);
 		} catch (error) {
 			// console.clear();

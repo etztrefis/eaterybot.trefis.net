@@ -90,10 +90,10 @@ function Signup(props) {
 		let apiResponse = null;
 		try {
 			apiResponse = await axios.get(
-				`http://localhost:8081/api/codes/${validateCode}`
+				`${process.env.REACT_APP_API_SERVER}codes/${validateCode}`
 			);
 		} catch (error) {
-			console.clear();
+			console.log(error);
 		} finally {
 			if (apiResponse !== null) {
 				setIsValidateError(false);
@@ -149,11 +149,11 @@ function Signup(props) {
 
 				try {
 					apiResponse = await axios.get(
-						`http://localhost:8081/api/admins/create/${userName}/${crypt}/${validateCode}`, //CHANGE BEFORE BUILD
+						`${process.env.REACT_APP_API_SERVER}admins/create/${userName}/${crypt}/${validateCode}`, 
 						config
 					);
 				} catch (error) {
-					console.clear();
+					console.log(error);
 				} finally {
 					if (apiResponse !== null) {
 						if (apiResponse.data.message === "Already exists.") {
