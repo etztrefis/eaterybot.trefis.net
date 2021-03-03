@@ -50,7 +50,7 @@ function Sidebar(props) {
 	});
 
 	const logOut = (props) => {
-		localStorage.clear();
+		localStorage.removeItem('tokens');
 		window.location.reload();
 	};
 
@@ -75,6 +75,7 @@ function Sidebar(props) {
 			onClick={toggleDrawer(anchor, false)}
 			onKeyDown={toggleDrawer(anchor, false)}
 		>
+			<img src="favicon.png" width="64px" style={{width:"64px", height:"64px", margin:"0 auto", marginTop:"20px", marginBottom:"20px", display:"block"}}/>
 			<Divider classes={{ root: classes.upper_divider }} />
 			<List>
 				<ListItem button onClick={() => history.push("/admin")}>
@@ -88,12 +89,6 @@ function Sidebar(props) {
 						<EqualizerIcon />
 					</ListItemIcon>
 					<ListItemText primary="Статистика" />
-				</ListItem>
-				<ListItem button>
-					<ListItemIcon style={{ color: "white" }}>
-						<GroupIcon />
-					</ListItemIcon>
-					<ListItemText primary="Пользователи" />
 				</ListItem>
 				<ListItem button onClick={() => history.push("/admin/orders")}>
 					<ListItemIcon style={{ color: "white" }}>
