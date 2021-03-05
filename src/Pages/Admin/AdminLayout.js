@@ -48,22 +48,24 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
         this._isMounted = true;
         const server = `${process.env.REACT_APP_API_SERVER}admins/`;
         const secondServer = `${process.env.REACT_APP_API_SERVER}codes/`;
-        if (global.localStorage.getItem('tokens').charAt(global.localStorage.getItem('tokens').length - 2) == 1) {
-            await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
-                .then(response => {
-                    if (this._isMounted) {
-                        this.setState({
-                            admins: response.data
-                        })
-                    }
-                }).catch(error => {
-                    console.log(error);
-                })
-        } else {
-            if (this._isMounted) {
-                this.setState({
-                    admins: []
-                })
+        if (global.localStorage.getItem('tokens') !== null) {
+            if (global.localStorage.getItem('tokens').charAt(global.localStorage.getItem('tokens').length - 2) == 1) {
+                await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
+                    .then(response => {
+                        if (this._isMounted) {
+                            this.setState({
+                                admins: response.data
+                            })
+                        }
+                    }).catch(error => {
+                        console.log(error);
+                    })
+            } else {
+                if (this._isMounted) {
+                    this.setState({
+                        admins: []
+                    })
+                }
             }
         }
         await axios.get(secondServer, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
@@ -181,6 +183,13 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
     }
 
     render() {
+        let username;
+        if (global.localStorage.getItem('tokens') != null) {
+            const localArray = global.localStorage.getItem('tokens').split(" ");
+            const stringLocalArray = localArray[1].toString();
+            username = stringLocalArray.substring(0, stringLocalArray.length - 2);
+        }
+
         return (
             <div>
                 <ResponsiveReactGridLayout
@@ -213,11 +222,11 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                             </Button>
                             <div className="error-wrapper" style={{ marginLeft: "10px", width: "90%", marginTop: "20px" }}>
                                 <Error>
-                                    • Минимум 8 символов. 
-                                    <br/>
+                                    • Минимум 8 символов.
+                                    <br />
                                     • Хотя бы одна цифра.
 									<br />
-									• Хотя бы один специальный символ. 
+									• Хотя бы один специальный символ.
                                     <br />
                                     • Хотя бы один символ в верхнем регистре.
 									<br />
@@ -278,7 +287,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                         lastTooltip: "Последняя страница"
                                     },
                                     body: {
-                                        emptyDataSourceMessage:"У Вас недостаточно прав для просмотра таблицы администраторов.",
+                                        emptyDataSourceMessage: "У Вас недостаточно прав для просмотра таблицы администраторов.",
                                         addTooltip: "Новая запись",
                                         deleteTooltip: "Удалить",
                                         editTooltip: "Изменить",
@@ -291,7 +300,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                 }}
                                 editable={{
                                     onRowDelete: async (oldData) => {
-                                        const server = `${process.env.REACT_APP_API_SERVER}admins/delete/${oldData.Login}`;
+                                        const server = `${process.env.REACT_APP_API_SERVER}admins/delete/${oldData.Login}/${username}`;
                                         await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                             .then(response => {
                                                 if (response.status == 200) {
@@ -326,7 +335,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                     { title: 'Автор', field: 'Author' },
                                     { title: 'Время', field: 'Date', type: 'datetime' },
                                     { title: 'Код', field: 'Code' },
-                                    { title: 'Доступ', field: 'Availiable', type:"boolean" },
+                                    { title: 'Доступ', field: 'Availiable', type: "boolean" },
                                 ]}
                                 options={{
                                     draggable: false,
@@ -353,7 +362,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                         lastTooltip: "Последняя страница"
                                     },
                                     body: {
-                                        emptyDataSourceMessage:"Отсутсвуют записи в таблице.",
+                                        emptyDataSourceMessage: "Отсутсвуют записи в таблице.",
                                         addTooltip: "Новая запись",
                                         deleteTooltip: "Удалить",
                                         editTooltip: "Изменить",

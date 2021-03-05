@@ -79,7 +79,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 		this.setState({ layouts });
 	}
 
-	async handeTableClear(){
+	async handeTableClear() {
 		const server = `${process.env.REACT_APP_API_SERVER}menu/destroy`;
 		await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
 			.catch(error => {
@@ -88,6 +88,12 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 	}
 
 	render() {
+		let username;
+        if(global.localStorage.getItem('tokens') != null){
+            const localArray =global.localStorage.getItem('tokens').split(" ");
+            const stringLocalArray = localArray[1].toString();
+            username = stringLocalArray.substring(0, stringLocalArray.length - 2);
+        }
 		return (
 			<div>
 				<ResponsiveReactGridLayout
@@ -102,8 +108,8 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 					<div key="1" data-grid={{ w: 6, h: 5, x: 0, y: 0, static: true }} >
 						<div className="grid-header">Очистить таблицу</div>
 						<div className="grid-text">Данное действие удалит все записи из таблицы меню, его можно использовать только в случе, если вам необходимо создать меню на новую неделю.</div>
-						<div className="grid-text" style={{paddingTop: "5px"}}>Данные <b style={{ color: "red" }}>НЕ БУДУТ СОХРАНЕНЫ</b>, их уже никак не вернуть.</div>
-						<div style={{ paddingLeft: "24px", paddingTop: "10px"}}>
+						<div className="grid-text" style={{ paddingTop: "5px" }}>Данные <b style={{ color: "red" }}>НЕ БУДУТ СОХРАНЕНЫ</b>, их уже никак не вернуть.</div>
+						<div style={{ paddingLeft: "24px", paddingTop: "10px" }}>
 							<Button variant="danger" onClick={this.handeTableClear}>
 								Очистить
 							</Button>
@@ -158,7 +164,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 								onRowAdd: async (newData) => {
 									console.log(newData.Name);
 									if (newData.DayOfWeek !== undefined && newData.Name !== undefined) {
-										const server = `${process.env.REACT_APP_API_SERVER}menu/create/${newData.DayOfWeek}/${newData.Name}`;
+										const server = `${process.env.REACT_APP_API_SERVER}menu/create/${newData.DayOfWeek}/${newData.Name}/${username}`;
 										await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
 											.then(response => {
 												if (response.status == 200) {
@@ -182,7 +188,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 									})
 								},
 								onRowDelete: async (oldData) => {
-									const server = `${process.env.REACT_APP_API_SERVER}menu/delete/${oldData.DayOfWeek}/${oldData.Name}`;
+									const server = `${process.env.REACT_APP_API_SERVER}menu/delete/${oldData.DayOfWeek}/${oldData.Name}/${username}`;
 									await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
 										.then(response => {
 											if (response.status == 200) {
@@ -257,7 +263,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 							}}
 							editable={{
 								onRowUpdate: async (newData, oldData) => {
-									const server = `${process.env.REACT_APP_API_SERVER}orders/update/${newData.ID}/${newData.State}`;
+									const server = `${process.env.REACT_APP_API_SERVER}orders/update/${newData.ID}/${newData.State}/${username}`;
 									await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
 										.then(response => {
 											if (response.status == 200) {

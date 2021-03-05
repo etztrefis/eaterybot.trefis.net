@@ -67,6 +67,12 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
     }
 
     render() {
+        let username;
+        if(global.localStorage.getItem('tokens') != null){
+            const localArray =global.localStorage.getItem('tokens').split(" ");
+            const stringLocalArray = localArray[1].toString();
+            username = stringLocalArray.substring(0, stringLocalArray.length - 2);
+        }
         return (
             <div>
                 <ResponsiveReactGridLayout
@@ -182,7 +188,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                             editable={{
                                 onRowAdd: async (newData) => {
                                     if (newData.Name !== undefined && newData.Amount !== undefined && newData.MeasurmentUnits !== undefined) {
-                                        const server = `${process.env.REACT_APP_API_SERVER}products/create/${newData.Name}/${newData.Amount}/${newData.MeasurmentUnits}`;
+                                        const server = `${process.env.REACT_APP_API_SERVER}products/create/${newData.Name}/${newData.Amount}/${newData.MeasurmentUnits}/${username}`;
                                         await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                             .then(response => {
                                                 if (response.status == 200) {
@@ -206,7 +212,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                     })
                                 },
                                 onRowUpdate: async (newData, oldData) => {
-                                    const server = `${process.env.REACT_APP_API_SERVER}products/update/${newData.ProductID}/${newData.Name}/${newData.Amount}/${newData.MeasurmentUnits}`;
+                                    const server = `${process.env.REACT_APP_API_SERVER}products/update/${newData.ProductID}/${newData.Name}/${newData.Amount}/${newData.MeasurmentUnits}/${username}`;
                                     await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                         .then(response => {
                                             if (response.status == 200) {
@@ -227,7 +233,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                     })
                                 },
                                 onRowDelete: async (oldData) => {
-                                    const server = `${process.env.REACT_APP_API_SERVER}products/delete/${oldData.ProductID}`;
+                                    const server = `${process.env.REACT_APP_API_SERVER}products/delete/${oldData.ProductID}/${username}`;
                                     await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                         .then(response => {
                                             if (response.status == 200) {

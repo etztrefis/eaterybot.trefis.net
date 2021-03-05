@@ -67,6 +67,12 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
     }
 
     render() {
+        let username;
+        if(global.localStorage.getItem('tokens') != null){
+            const localArray =global.localStorage.getItem('tokens').split(" ");
+            const stringLocalArray = localArray[1].toString();
+            username = stringLocalArray.substring(0, stringLocalArray.length - 2);
+        }
         return (
             <div>
                 <ResponsiveReactGridLayout
@@ -128,7 +134,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                             editable={{
                                 onRowAdd: async (newData) => {
                                     if (newData.DishID !== undefined && newData.Name !== undefined && newData.EnergyValue !== undefined && newData.Price !== undefined) {
-                                        const server = `${process.env.REACT_APP_API_SERVER}dishes/create/${newData.DishID}/${newData.Name}/${newData.EnergyValue}/${newData.Price}`;
+                                        const server = `${process.env.REACT_APP_API_SERVER}dishes/create/${newData.DishID}/${newData.Name}/${newData.EnergyValue}/${newData.Price}/${username}`;
                                         await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                             .then(response => {
                                                 if (response.status == 200) {
@@ -153,7 +159,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                 },
                                 onRowUpdate: async (newData, oldData) => {
                                     if (newData.DishID !== undefined && newData.Name !== undefined && newData.EnergyValue !== undefined && newData.Price !== undefined) {
-                                        const server = `${process.env.REACT_APP_API_SERVER}dishes/update/${newData.DishID}/${newData.Name}/${newData.EnergyValue}/${newData.Price}`;
+                                        const server = `${process.env.REACT_APP_API_SERVER}dishes/update/${newData.DishID}/${newData.Name}/${newData.EnergyValue}/${newData.Price}/${username}`;
                                         await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                             .then(response => {
                                                 if (response.status == 200) {
@@ -177,7 +183,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                     }
                                 },
                                 onRowDelete: async (oldData) => {
-                                    const server = `${process.env.REACT_APP_API_SERVER}dishes/delete/${oldData.DishID}`;
+                                    const server = `${process.env.REACT_APP_API_SERVER}dishes/delete/${oldData.DishID}/${username}`;
                                     await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                         .then(response => {
                                             if (response.status == 200) {
@@ -251,7 +257,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                             editable={{
                                 onRowAdd: async (newData) => {
                                     if (newData.DishID !== undefined && newData.Name !== undefined && newData.AmountProduct !== undefined) {
-                                        const server = `${process.env.REACT_APP_API_SERVER}compositions/create/${newData.DishID}/${newData.Name}/${newData.AmountProduct}`;
+                                        const server = `${process.env.REACT_APP_API_SERVER}compositions/create/${newData.DishID}/${newData.Name}/${newData.AmountProduct}/${username}`;
                                         await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                             .then(response => {
                                                 if (response.status == 200) {
@@ -276,7 +282,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                 },
                                 onRowUpdate: async (newData, oldData) => {
                                     if (newData.DishID !== undefined && newData.Name !== undefined && newData.AmountProduct !== undefined) {
-                                        const server = `${process.env.REACT_APP_API_SERVER}compositions/update/${newData.DishID}/${newData.Name}/${newData.AmountProduct}`;
+                                        const server = `${process.env.REACT_APP_API_SERVER}compositions/update/${newData.DishID}/${newData.Name}/${newData.AmountProduct}/${username}`;
                                         await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                             .then(response => {
                                                 if (response.status == 200) {
@@ -300,7 +306,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                     }
                                 },
                                 onRowDelete: async (oldData) => {
-                                    const server = `${process.env.REACT_APP_API_SERVER}compositions/delete/${oldData.DishID}/${oldData.Name}`;
+                                    const server = `${process.env.REACT_APP_API_SERVER}compositions/delete/${oldData.DishID}/${oldData.Name}/${username}`;
                                     await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                         .then(response => {
                                             if (response.status == 200) {

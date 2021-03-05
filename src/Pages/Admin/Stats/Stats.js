@@ -19,12 +19,12 @@ export default class Stats extends React.Component {
     return (
       <div className="stats-main">
         <Sidebar />
-		asf
+        <StatsLayout onLayoutChange={this.onLayoutChange} />
       </div>
     );
   }
 }
 
-// const contentDiv = document.getElementById("root");
-// const gridProps = window.gridProps || {};
-// ReactDOM.render(React.createElement(StatsLayout, gridProps), contentDiv);
+const contentDiv = document.getElementById("root");
+const gridProps = window.gridProps || {};
+ReactDOM.render(React.createElement(StatsLayout, gridProps), contentDiv);
