@@ -327,7 +327,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                     <div key="5" data-grid={{ w: 6, h: 11, x: 7, y: 12 }}>
                         <span className="text">
                             <MaterialTable
-                                title="QR-коды"
+                                title="Коды регистрации"
                                 tableRef={tableRef}
                                 data={this.state.qrcodes}
                                 columns={[

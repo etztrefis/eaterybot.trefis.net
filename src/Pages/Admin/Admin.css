@@ -10,6 +10,19 @@
   padding-bottom: 5px;
 }
 
+.grid-header-stats {
+  position: absolute;
+  font-size: 1.25rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.0075em;
+  text-align: left;
+  padding-top: 5px;
+  padding-left: 24px;
+  padding-bottom: 5px;
+}
+
 .grid-text {
   font-size: 1rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;

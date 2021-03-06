@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
@@ -110,6 +110,7 @@ function Login(props) {
 										onChange={(e) => {
 											setUserName(e.target.value);
 										}}
+										onKeyPress={(e) => {e.key === 'Enter' ? postLogin() : null}}
 										placeholder="email"
 										autoFocus={true}
 									/>
@@ -124,6 +125,7 @@ function Login(props) {
 											onChange={(e) => {
 												setPassword(e.target.value);
 											}}
+											onKeyPress={(e) => {e.key === 'Enter' ? postLogin() : null}}
 											placeholder="password"
 										/>
 										<i onClick={togglePasswordVisiblity}>
