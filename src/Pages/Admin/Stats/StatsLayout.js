@@ -6,7 +6,7 @@ const ResponsiveReactGridLayout = WidthProvider(Responsive);
 const originalLayouts = getFromLS('layouts') || {};
 const tableRef = React.createRef();
 import axios from 'axios';
-import { XAxis, YAxis, Area, Tooltip, CartesianGrid, AreaChart, ResponsiveContainer } from 'recharts';
+import { XAxis, YAxis, Area, Tooltip, CartesianGrid, AreaChart, ResponsiveContainer, BarChart, Bar } from 'recharts';
 
 export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 	_isMounted = false;
@@ -16,59 +16,75 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 
 		this.state = {
 			layouts: JSON.parse(JSON.stringify(originalLayouts)),
+			logs: [],
+			dishes: [],
+			messages: [],
 			menu: [],
-			orders: [],
-			products: []
+			admin: []
 		};
-
-		this.data = [
-			{
-				'name': 'Page A',
-				'uv': 4000,
-				'pv': 2400,
-				'amt': 2400,
-			},
-			{
-				'name': 'Page B',
-				'uv': 3000,
-				'pv': 1398,
-				'amt': 2210,
-			},
-			{
-				'name': 'Page C',
-				'uv': 2000,
-				'pv': 8800,
-				'amt': 2290,
-			},
-			{
-				'name': 'Page D',
-				'uv': 2780,
-				'pv': 3908,
-				'amt': 2000,
-			},
-			{
-				'name': 'Page E',
-				'uv': 1890,
-				'pv': 4800,
-				'amt': 2181,
-			},
-			{
-				'name': 'Page F',
-				'uv': 2390,
-				'pv': 3800,
-				'amt': 2500,
-			},
-			{
-				'name': 'Page G',
-				'uv': 3490,
-				'pv': 4300,
-				'amt': 2100,
-			},
-		];
 	}
 
 	async componentDidMount() {
+		this._isMounted = true;
+		const server = `${process.env.REACT_APP_API_SERVER}logs/`;
+		await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
+			.then(response => {
+				if (this._isMounted) {
+					this.setState({
+						logs: response.data
+					})
+				}
+			}).catch(error => {
+				console.log(error);
+			})
 
+		const dishesServer = `${process.env.REACT_APP_API_SERVER}stats/dishes/`;
+		await axios.get(dishesServer, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
+			.then(response => {
+				if (this._isMounted) {
+					this.setState({
+						dishes: response.data.message
+					})
+				}
+			}).catch(error => {
+				console.log(error);
+			})
+
+		const messagesServer = `${process.env.REACT_APP_API_SERVER}stats/messages/`;
+		await axios.get(messagesServer, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
+			.then(response => {
+				if (this._isMounted) {
+					this.setState({
+						messages: response.data.message
+					})
+				}
+			}).catch(error => {
+				console.log(error);
+			})
+
+		const menuServer = `${process.env.REACT_APP_API_SERVER}stats/menu/`;
+		await axios.get(menuServer, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
+			.then(response => {
+				if (this._isMounted) {
+					this.setState({
+						menu: response.data.message
+					})
+				}
+			}).catch(error => {
+				console.log(error);
+			})
+
+		const adminServer = `${process.env.REACT_APP_API_SERVER}stats/admins/`;
+		await axios.get(adminServer, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
+			.then(response => {
+				if (this._isMounted) {
+					this.setState({
+						admin: response.data.message
+					})
+				}
+			}).catch(error => {
+				console.log(error);
+			})
 	}
 
 	componentWillUnmount() {
@@ -93,6 +109,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 	}
 
 	render() {
+		console.log(this.state.admin);
 		return (
 			<div>
 				<ResponsiveReactGridLayout
@@ -104,40 +121,138 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 						this.onLayoutChange(layout, layouts)
 					}
 				>
-					<div key="1" data-grid={{ w: 6, h: 9, x: 0, y: 0, static: true }} >
+					<div key="1" data-grid={{ w: 6, h: 9, x: 0, y: 0 }} >
+					<div className="grid-header-stats">Количество заказов по блюдам</div>
 						<ResponsiveContainer>
-							<AreaChart width={930} height={300} data={this.data}
-								margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+							<AreaChart width={930} height={300} data={this.state.dishes}
+								margin={{ top: 40, right: 30, left: 0, bottom: 0 }}>
 								<defs>
-									<linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-										<stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-										<stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-									</linearGradient>
 									<linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
 										<stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
 										<stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
 									</linearGradient>
 								</defs>
-								<XAxis dataKey="name" />
+								<XAxis dataKey="Name" />
 								<YAxis />
 								<CartesianGrid strokeDasharray="3 3" />
 								<Tooltip />
-								<Area type="monotone" dataKey="uv" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
-								<Area type="monotone" dataKey="pv" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+								<Area type="monotone" dataKey="Amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
 							</AreaChart>
 						</ResponsiveContainer>
 					</div>
-					<div key="2" data-grid={{ w: 6, h: 9, x: 6, y: 0, static: true }}>
-
+					<div key="2" data-grid={{ w: 6, h: 9, x: 0, y: 9 }}>
+						<div className="grid-header-stats">Количество заказов в день</div>
+						<ResponsiveContainer>
+							<AreaChart width={930} height={250} data={this.state.menu}
+								margin={{ top: 40, right: 30, left: 0, bottom: 0 }}>
+								<defs>
+									<linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+										<stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+										<stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+									</linearGradient>
+								</defs>
+								<XAxis dataKey="day" />
+								<YAxis />
+								<CartesianGrid strokeDasharray="3 3" />
+								<Tooltip />
+								<Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+							</AreaChart>
+						</ResponsiveContainer>
 					</div>
-					<div key="3" data-grid={{ w: 6, h: 9, x: 0, y: 0, static: true }} >
-
+					<div key="3" data-grid={{ w: 6, h: 9, x: 0, y: 18 }} >
+						<div className="grid-header-stats">Количество сообщений в день</div>
+						<ResponsiveContainer>
+							<AreaChart width={930} height={300} data={this.state.messages}
+								margin={{ top: 40, right: 30, left: 0, bottom: 0 }}>
+								<defs>
+									<linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+										<stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+										<stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+									</linearGradient>
+								</defs>
+								<XAxis dataKey="day" />
+								<YAxis />
+								<CartesianGrid strokeDasharray="3 3" />
+								<Tooltip />
+								<Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+							</AreaChart>
+						</ResponsiveContainer>
 					</div>
-					<div key="4" data-grid={{ w: 6, h: 9, x: 6, y: 0, static: true }}>
-
+					<div key="4" data-grid={{ w: 6, h: 18, x: 6, y: 1 }}>
+						<MaterialTable
+							title="Действия администраторов"
+							tableRef={tableRef}
+							data={this.state.logs}
+							columns={[
+								{ title: "Имя", field: 'Login', type: 'string' },
+								{
+									title: "Действие", field: 'Action', type: 'string',
+									cellStyle: {
+										backgroundColor: '#ffe3e6',
+										color: 'black'
+									},
+								},
+								{ title: "Таблица", field: 'Table', type: 'string' },
+								{ title: "Дата", field: 'Date', type: 'datetime' },
+							]}
+							options={{
+								search: false,
+								addRowPosition: 'first',
+								draggable: false,
+								paging: true,
+								pageSize: 10,
+								emptyRowsWhenPaging: false,
+								pageSizeOptions: [10],
+							}}
+							localization={{
+								header: {
+									actions: "Действия"
+								},
+								toolbar: {
+									searchPlaceholder: "Поиск",
+									searchTooltip: "Поиск",
+									nRowsSelected: "{0} строк(и) выбрано",
+								},
+								pagination: {
+									labelDisplayedRows: "{from}-{to} из {count}",
+									labelRowsSelect: "строк",
+									firstTooltip: "Первая страница",
+									previousTooltip: "Предыдущая страница",
+									nextTooltip: "Следующая страница",
+									lastTooltip: "Последняя страница"
+								},
+								body: {
+									addTooltip: "Новая запись",
+									deleteTooltip: "Удалить",
+									editTooltip: "Изменить",
+									editRow: {
+										deleteText: "Вы уверены, что хотите удалить эту запись?",
+										saveTooltip: "Сохранить",
+										cancelTooltip: "Отмена"
+									}
+								}
+							}}
+						/>
+					</div>
+					<div key="5" data-grid={{ w: 6, h: 9, x: 18, y: 1 }}>
+						<div className="grid-header-stats">Действия администраторов</div>
+						<ResponsiveContainer>
+							<BarChart
+								width={500}
+								height={300}
+								data={this.state.admin}
+								margin={{ top: 45, right: 30, left: 0, bottom: 0 }}
+							>
+								<CartesianGrid strokeDasharray="3 3" />
+								<XAxis dataKey="login" />
+								<YAxis />
+								<Tooltip />
+								<Bar dataKey="actions" fill="#8884d8" />
+							</BarChart>
+						</ResponsiveContainer>
 					</div>
 				</ResponsiveReactGridLayout>
-			</div>
+			</div >
 		);
 	}
 }
