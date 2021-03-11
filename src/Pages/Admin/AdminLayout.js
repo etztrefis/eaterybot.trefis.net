@@ -1,14 +1,10 @@
 import React from 'react';
 import { WidthProvider, Responsive } from 'react-grid-layout';
 import {
-    Card,
-    Logo,
     Form,
     Input,
     Text,
-    Header,
     Error,
-    Success,
 } from "../../Components/AuthForm/AuthForm";
 import cryptJS from "crypto-js";
 import { Button } from "react-bootstrap";
@@ -28,11 +24,15 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
             oldPassword: '',
             newPassword: '',
             email: '',
+            name: '',
+            surname: '',
+            post: '',
             admins: [],
             qrcodes: [],
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDataSubmit = this.handleDataSubmit.bind(this);
     }
 
     static get defaultProps() {
@@ -116,6 +116,23 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
             .catch((e) => { alert(`Ошибка 404 во время выполнения запроса.`); console.log(e); })
     }
 
+    async handleDataSubmit() {
+        if (this.state.name !== '' || this.state.surname !== '' || this.state.post !== '') {
+            if (global.localStorage) {
+                global.localStorage.setItem(
+                    'personalData',
+                    JSON.stringify({
+                        name: this.state.name,
+                        surname: this.state.surname,
+                        post: this.state.post,
+                    }),
+                );
+            }
+        } else {
+            alert(`Все поля должны быть заполнены.`);
+        }
+    }
+
     async handleSubmit() {
         if (this.state.email == '') {
             if (this.state.newPassword !== '' || this.state.oldPassword !== '') {
@@ -189,7 +206,13 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
             const stringLocalArray = localArray[1].toString();
             username = stringLocalArray.substring(0, stringLocalArray.length - 2);
         }
-
+        let name, surname, post = "";
+        if (global.localStorage.getItem('personalData') != null) {
+            const localData = JSON.parse(global.localStorage.getItem('personalData'));
+            name = localData.name;
+            surname = localData.surname;
+            post = localData.post;
+        }
         return (
             <div>
                 <ResponsiveReactGridLayout
@@ -202,20 +225,50 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                         this.onLayoutChange(layout, layouts)
                     }
                 >
-                    <div key="2" data-grid={{ w: 6, h: 12, x: 0, y: 0 }}>
+                    <div key="1" data-grid={{ w: 6, h: 12, x: 0, y: 0 }}>
+                        <div className="grid-header">Персональные данные</div>
+                        <div className="grid-text">Эти данные используются только при распечатывании меню и прочих документов. </div>
+                        <div className="grid-text">Имя: </div>
+                        <Form>
+                            <Input
+                                type="text"
+                                placeholder={name}
+                                name="name"
+                                onBlur={this.handleChange}
+                            />
+                            <div className="grid-text">Отчество (Фамилия): </div>
+                            <Input
+                                type="text"
+                                placeholder={surname}
+                                name="surname"
+                                onBlur={this.handleChange}
+                            />
+                            <div className="grid-text">Должность: </div>
+                            <Input
+                                type="text"
+                                placeholder={post}
+                                name="post"
+                                onBlur={this.handleChange}
+                            />
+                            <Button variant='success' style={{ width: "30%", marginLeft: "10px", height: "20%", marginTop: "10px" }} type="submit" onClick={this.handleDataSubmit}>
+                                Изменить
+                            </Button>
+                        </Form>
+                    </div>
+                    <div key="2" data-grid={{ w: 6, h: 12, x: 0, y: 12 }}>
                         <div className="grid-header">Смена пароля</div>
                         <div className="grid-text">Настоящий пароль: </div>
                         <Form>
                             <Input
                                 type="password"
                                 name="oldPassword"
-                                onChange={this.handleChange}
+                                onBlur={this.handleChange}
                             />
                             <div className="grid-text">Новый пароль: </div>
                             <Input
                                 type="password"
                                 name="newPassword"
-                                onChange={this.handleChange}
+                                onBlur={this.handleChange}
                             />
                             <Button variant='success' style={{ width: "30%", marginLeft: "10px", height: "20%" }} type="submit" onClick={this.handleSubmit}>
                                 Изменить
@@ -236,21 +289,21 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                             </div>
                         </Form>
                     </div>
-                    <div key="3" data-grid={{ w: 6, h: 6, x: 0, y: 12 }}>
+                    <div key="3" data-grid={{ w: 6, h: 6, x: 6, y: 22 }}>
                         <span className="text"><div className="grid-header">Смена почты</div>
                             <div className="grid-text">Укажите новую почту: </div>
                             <Form>
                                 <Input
                                     type="text"
                                     name="email"
-                                    onChange={this.handleChange}
+                                    onBlur={this.handleChange}
                                 />
                                 <Button variant='success' style={{ width: "30%", marginLeft: "10px", height: "20%", marginTop: "5px" }} type="submit" onClick={this.handleSubmit} >
                                     Изменить
                             </Button>
                             </Form></span>
                     </div>
-                    <div key="4" data-grid={{ w: 6, h: 11, x: 7, y: 0 }}>
+                    <div key="4" data-grid={{ w: 6, h: 11, x: 6, y: 0 }}>
                         <span className="text">
                             <MaterialTable
                                 title="Администраторы"
@@ -324,7 +377,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                 }
                             /></span>
                     </div>
-                    <div key="5" data-grid={{ w: 6, h: 11, x: 7, y: 12 }}>
+                    <div key="5" data-grid={{ w: 6, h: 11, x: 6, y: 12 }}>
                         <span className="text">
                             <MaterialTable
                                 title="Коды регистрации"

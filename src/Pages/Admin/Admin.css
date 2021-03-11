@@ -44,6 +44,21 @@
   background: #5a02b4;
 }
 
+.buttons-menu {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 50%;
+  height: 30%;
+  margin: auto;
+}
+
+.buttons-grid {
+  position: relative;
+}
+
 .sidebar-top-wrapper {
   background-color: rgba(0, 0, 0, 0.767);
   height: 80px;

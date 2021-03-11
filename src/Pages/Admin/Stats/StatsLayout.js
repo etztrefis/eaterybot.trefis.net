@@ -109,7 +109,6 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 	}
 
 	render() {
-		console.log(this.state.admin);
 		return (
 			<div>
 				<ResponsiveReactGridLayout
