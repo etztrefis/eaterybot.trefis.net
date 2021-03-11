@@ -8,15 +8,17 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import GroupIcon from "@material-ui/icons/Group";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
 import EqualizerIcon from "@material-ui/icons/Equalizer";
 import LocalPizzaIcon from "@material-ui/icons/LocalPizza";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
+import PrintIcon from '@material-ui/icons/Print';
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import { useHistory } from 'react-router-dom';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import MainPDF from '../../Pages/Admin/PDF/document';
 import "../../Pages/Admin/Admin.css";
 
 const useStyles = makeStyles({
@@ -75,7 +77,7 @@ function Sidebar(props) {
 			onClick={toggleDrawer(anchor, false)}
 			onKeyDown={toggleDrawer(anchor, false)}
 		>
-			<img src={process.env.PUBLIC_URL + '/favicon.png'} width="64px" style={{width:"64px", height:"64px", margin:"0 auto", marginTop:"20px", marginBottom:"20px", display:"block"}}/>
+			<img src={process.env.PUBLIC_URL + '/favicon.png'} width="64px" style={{ width: "64px", height: "64px", margin: "0 auto", marginTop: "20px", marginBottom: "20px", display: "block" }} />
 			<Divider classes={{ root: classes.upper_divider }} />
 			<List>
 				<ListItem button onClick={() => history.push("/admin")}>
@@ -95,6 +97,14 @@ function Sidebar(props) {
 						<MenuBookIcon />
 					</ListItemIcon>
 					<ListItemText primary="Заказы и меню" />
+				</ListItem>
+				<ListItem button onClick={() => { }}>
+					<ListItemIcon style={{ color: "white" }}>
+						<PrintIcon />
+					</ListItemIcon>
+					<PDFDownloadLink document={<MainPDF />} fileName="somename.pdf" style={{ color: "white", textDecoration: "none" }}>
+						{({ blob, url, loading, error }) => (loading ? 'Загрузка документа...' : 'Печать меню')}
+					</PDFDownloadLink>
 				</ListItem>
 			</List>
 			<Divider classes={{ root: classes.divider }} />
