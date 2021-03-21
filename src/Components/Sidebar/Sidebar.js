@@ -19,6 +19,7 @@ import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import { useHistory } from 'react-router-dom';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import MainPDF from '../../Pages/Admin/PDF/classdocument';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import "../../Pages/Admin/Admin.css";
 
 const useStyles = makeStyles({
@@ -120,6 +121,15 @@ function Sidebar(props) {
 						<LocalPizzaIcon />
 					</ListItemIcon>
 					<ListItemText primary="Продукты" />
+				</ListItem>
+			</List>
+			<Divider classes={{ root: classes.divider }} />
+			<List>
+				<ListItem button onClick={() => history.push("/")}>
+					<ListItemIcon style={{ color: "white" }}>
+						<ExitToAppIcon />
+					</ListItemIcon>
+					<ListItemText primary="Вернуться" />
 				</ListItem>
 			</List>
 		</div>
