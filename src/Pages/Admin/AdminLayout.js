@@ -174,7 +174,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                 alert(`Ошибка во время выполнения: ${apiResponse.data.type} ${apiResponse.data.message}`)
                             }
                         })
-                        .catch((e) => { alert(`Ошибка 404 во время выполнения запроса.`); console.log(e); })
+                        .catch((e) => { alert(`Неверный пароль, либо сервер не отвечает.`); console.log(e); })
                 }
             } else {
                 alert(`Все поля должны быть заполнены.`);
