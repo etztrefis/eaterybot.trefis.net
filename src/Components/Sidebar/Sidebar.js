@@ -18,7 +18,7 @@ import PrintIcon from '@material-ui/icons/Print';
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import { useHistory } from 'react-router-dom';
 import { PDFDownloadLink } from '@react-pdf/renderer';
-import MainPDF from '../../Pages/Admin/PDF/document';
+import MainPDF from '../../Pages/Admin/PDF/classdocument';
 import "../../Pages/Admin/Admin.css";
 
 const useStyles = makeStyles({
@@ -102,7 +102,7 @@ function Sidebar(props) {
 					<ListItemIcon style={{ color: "white" }}>
 						<PrintIcon />
 					</ListItemIcon>
-					<PDFDownloadLink document={<MainPDF />} fileName="somename.pdf" style={{ color: "white", textDecoration: "none" }}>
+					<PDFDownloadLink document={<MainPDF />} fileName="menudata.pdf" style={{ color: "white", textDecoration: "none" }}>
 						{({ blob, url, loading, error }) => (loading ? 'Загрузка документа...' : 'Печать меню')}
 					</PDFDownloadLink>
 				</ListItem>
