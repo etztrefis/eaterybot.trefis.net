@@ -80,8 +80,17 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 	}
 
 	async handeTableClear() {
-		const server = `${process.env.REACT_APP_API_SERVER}menu/destroy`;
+		let username;
+        if(global.localStorage.getItem('tokens') != null){
+            const localArray =global.localStorage.getItem('tokens').split(" ");
+            const stringLocalArray = localArray[1].toString();
+            username = stringLocalArray.substring(0, stringLocalArray.length - 2);
+        }
+		const server = `${process.env.REACT_APP_API_SERVER}menu/destroy/${username}`;
 		await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
+			.then(() => {
+				window.location.reload();
+			})
 			.catch(error => {
 				console.log(error);
 			})
@@ -218,11 +227,11 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 							tableRef={tableRef}
 							data={this.state.orders}
 							columns={[
-								{ title: 'ID', field: 'ID' },
-								{ title: 'Имя', field: 'FirstName' },
-								{ title: 'Фамилия', field: 'LastName' },
-								{ title: 'Название блюда', field: 'Name' },
-								{ title: 'Последнее изменение', field: 'Date', type: 'datetime' },
+								{ title: 'ID', field: 'ID', editable: "never" },
+								{ title: 'Имя', field: 'FirstName', editable: "never" },
+								{ title: 'Фамилия', field: 'LastName', editable: "never" },
+								{ title: 'Название блюда', field: 'Name', editable: "never" },
+								{ title: 'Последнее изменение', field: 'Date', type: 'datetime', editable: "never" },
 								{ title: 'Состояние заказа', field: 'State', lookup: { "Заказан": "Заказан", "Подготовка продуктов": "Подготовка продуктов", "Изготавливается": "Изготавливается", "Готов": "Готов" } },
 							]}
 							options={{

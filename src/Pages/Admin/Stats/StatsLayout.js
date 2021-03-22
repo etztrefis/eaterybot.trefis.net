@@ -127,15 +127,15 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 								margin={{ top: 40, right: 30, left: 0, bottom: 0 }}>
 								<defs>
 									<linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-										<stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-										<stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+										<stop offset="5%" stopColor="#7100DD" stopOpacity={0.8} />
+										<stop offset="95%" stopColor="#7100DD" stopOpacity={0} />
 									</linearGradient>
 								</defs>
 								<XAxis dataKey="Name" />
 								<YAxis />
 								<CartesianGrid strokeDasharray="3 3" />
 								<Tooltip />
-								<Area type="monotone" dataKey="Amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+								<Area type="monotone" dataKey="Amount" stroke="#4B0082" fillOpacity={1} fill="url(#colorPv)" />
 							</AreaChart>
 						</ResponsiveContainer>
 					</div>
@@ -146,15 +146,15 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 								margin={{ top: 40, right: 30, left: 0, bottom: 0 }}>
 								<defs>
 									<linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-										<stop offset="5%" stopColor="#5899e2" stopOpacity={0.8} />
-										<stop offset="95%" stopColor="#5899e2" stopOpacity={0} />
+										<stop offset="5%" stopColor="#7100DD" stopOpacity={0.8} />
+										<stop offset="95%" stopColor="#7100DD" stopOpacity={0} />
 									</linearGradient>
 								</defs>
 								<XAxis dataKey="day" />
 								<YAxis />
 								<CartesianGrid strokeDasharray="3 3" />
 								<Tooltip />
-								<Area type="monotone" dataKey="amount" stroke="#3333ff" fillOpacity={1} fill="url(#colorPv)" />
+								<Area type="monotone" dataKey="amount" stroke="#4B0082" fillOpacity={1} fill="url(#colorPv)" />
 							</AreaChart>
 						</ResponsiveContainer>
 					</div>
@@ -165,15 +165,15 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 								margin={{ top: 40, right: 30, left: 0, bottom: 0 }}>
 								<defs>
 									<linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-										<stop offset="5%" stopColor="#861657" stopOpacity={0.8} />
-										<stop offset="95%" stopColor="#861657" stopOpacity={0} />
+										<stop offset="5%" stopColor="#7100DD" stopOpacity={0.8} />
+										<stop offset="95%" stopColor="#7100DD" stopOpacity={0} />
 									</linearGradient>
 								</defs>
 								<XAxis dataKey="day" />
 								<YAxis />
 								<CartesianGrid strokeDasharray="3 3" />
 								<Tooltip />
-								<Area type="monotone" dataKey="amount" stroke="#9B30FF" fillOpacity={1} fill="url(#colorPv)" />
+								<Area type="monotone" dataKey="amount" stroke="#4B0082" fillOpacity={1} fill="url(#colorPv)" />
 							</AreaChart>
 						</ResponsiveContainer>
 					</div>
@@ -199,9 +199,9 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 								addRowPosition: 'first',
 								draggable: false,
 								paging: true,
-								pageSize: 10,
+								pageSize: 7,
 								emptyRowsWhenPaging: false,
-								pageSizeOptions: [10],
+								pageSizeOptions: [7],
 							}}
 							localization={{
 								header: {
@@ -246,7 +246,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 								<XAxis dataKey="login" />
 								<YAxis />
 								<Tooltip />
-								<Bar dataKey="actions" fill="#8884d8" />
+								<Bar dataKey="actions" fill="#7100DD" />
 							</BarChart>
 						</ResponsiveContainer>
 					</div>

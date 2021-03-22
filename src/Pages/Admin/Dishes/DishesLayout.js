@@ -15,7 +15,8 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
         this.state = {
             layouts: JSON.parse(JSON.stringify(originalLayouts)),
             dishesData: [],
-            compData: []
+            compData: [],
+            products: []
         };
     }
 
@@ -23,6 +24,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
         this._isMounted = true;
         const server = `${process.env.REACT_APP_API_SERVER}dishes/`;
         const secondServer = `${process.env.REACT_APP_API_SERVER}compositions/`;
+        const thirdServer = `${process.env.REACT_APP_API_SERVER}products/lookup/`
         await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
             .then(response => {
                 if (this._isMounted) {
@@ -43,6 +45,16 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
             }).catch(error => {
                 console.log(error);
             })
+        await axios.get(thirdServer, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
+			.then(response => {
+				if (this._isMounted) {
+					this.setState({
+						products: response.data.message
+					})
+				}
+			}).catch(error => {
+				console.log(error);
+			})
     }
 
     componentWillUnmount() {
@@ -213,8 +225,8 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                             tableRef={tableRef}
                             data={this.state.compData}
                             columns={[
-                                { title: 'ID блюда', field: 'DishID', },
-                                { title: 'Название', field: 'Name' },
+                                { title: 'ID блюда', field: 'DishID', editable:"onAdd"},
+                                { title: 'Название', field: 'Name' , editable:"onAdd", lookup: Object.assign({}, this.state.products) },
                                 { title: 'Количество продукта', field: 'AmountProduct', type: 'numeric' },
                             ]}
                             options={{
