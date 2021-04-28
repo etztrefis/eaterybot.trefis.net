@@ -1,9 +1,10 @@
 body {
-	background: linear-gradient(to right bottom, #6509e2 40%, #5a02b4 70%);
+	background-color: #F5F5F7;
 }
 
 * {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+	scroll-behavior: smooth;
 }
