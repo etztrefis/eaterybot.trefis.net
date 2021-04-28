@@ -155,10 +155,10 @@ export default function BodyComponent() {
 				<div className="container px-5 py-20 mx-auto">
 					<div className="flex flex-col text-center w-full mb-20">
 						<h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Что Вы получаете, если Вы с нами</h1>
-						<p className="lg:w-2/3 mx-auto leading-relaxed text-base">Кроме услуг чат-бота и сервиса администрирования Вы так же получаете:&ensp;
-							<span className="hover:text-purple-500">статистику</span>,&ensp;
-							<span className="hover:text-purple-600">контроль</span>,&ensp;
-							<span className="hover:text-purple-700">прибыль</span>&ensp;и&ensp;
+						<p className="lg:w-2/3 mx-auto leading-relaxed text-base">Кроме услуг чат-бота и сервиса администрирования Вы так же получаете:&nbsp;
+							<span className="hover:text-purple-500">статистику</span>,&nbsp;
+							<span className="hover:text-purple-600">контроль</span>,&nbsp;
+							<span className="hover:text-purple-700">прибыль</span>&nbsp;и&nbsp;
 							<span className="hover:text-purple-800">опыт</span>.
 						</p>
 					</div>
