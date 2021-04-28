@@ -1,31 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
-import { HelmetProvider } from "react-helmet-async";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from "react";
 import axios from "axios";
-import { useAuth } from "../../context/auth.js";
-import "./Login.css";
-import logoImg from "../../assets/logo.png";
-import {
-	Card,
-	Logo,
-	Form,
-	Input,
-	Button,
-	Text,
-	Header,
-	Error,
-} from "../../Components/AuthForm/AuthForm.js";
 import cryptJS from "crypto-js";
+import { Redirect } from "react-router-dom";
+import logoImg from "../../assets/logo.png";
+import { useAuth } from "../../context/auth.js";
 
-function Login(props) {
-	const eye = <FontAwesomeIcon icon={faEye} />;
-	const [passwordShown, setPasswordShown] = useState(false);
-	const togglePasswordVisiblity = () => {
-		setPasswordShown(passwordShown ? false : true);
-	};
-
+export default function LoginComponent() {
 	const [isLoggedIn, setLoggedIn] = useState(false);
 	const [isError, setIsError] = useState(false);
 	const [userName, setUserName] = useState("");
@@ -34,9 +14,7 @@ function Login(props) {
 
 	async function postLogin() {
 		setIsError(false);
-
 		let crypt = "/";
-
 		do {
 			crypt = cryptJS.AES.encrypt(
 				password,
@@ -56,10 +34,10 @@ function Login(props) {
 				`${server}admins/${userName}/${crypt}`, config
 			);
 		} catch (error) {
-			// console.clear();
 			console.error(error);
 			setIsError(true);
 		} finally {
+			console.log(apiResponse);
 			if (apiResponse !== null) {
 				setAuthTokens(apiResponse.data);
 				setLoggedIn(true);
@@ -73,100 +51,96 @@ function Login(props) {
 		return <Redirect to={"/admin"} />;
 	}
 
-	let mainHeight = "100vh";
-	let circlesHeight = "100vh";
-
 	return (
-		<HelmetProvider>
-			<div className="area">
-				<ul className="circles" style={{ height: circlesHeight }}>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-				</ul>
-			</div>
-			<div className="wrapper" style={{ height: mainHeight }}>
-				<div className="outer">
-					<div className="middle">
-						<div className="inner">
-							<Card>
-								<Logo src={logoImg} />
-								<Header>Вход</Header>
-								<Text>Перейти в панель администратора</Text>
-								<Form>
-									<Input
-										type="username"
-										value={userName}
-										onChange={(e) => {
-											setUserName(e.target.value);
-										}}
-										onKeyPress={(e) => {if(e.key === 'Enter') postLogin()}}
-										placeholder="email"
-										autoFocus={true}
-									/>
-									<div className="pass-wrapper">
-										<Input
-											type={
-												passwordShown
-													? "text"
-													: "password"
-											}
-											value={password}
-											onChange={(e) => {
-												setPassword(e.target.value);
-											}}
-											onKeyPress={(e) => {if(e.key === 'Enter') postLogin()}}
-											placeholder="password"
-										/>
-										<i onClick={togglePasswordVisiblity}>
-											{eye}
-										</i>{" "}
-									</div>
-									<Button type="button" onClick={postLogin}>
-										Войти
-									</Button>
-								</Form>
-								<Link
-									to="/signup"
-									style={{ paddingBottom: "10px" }}
-								>
-									Первый раз на нашем сайте?
-								</Link>
-								{isError && (
-									<div className="error-wrapper">
-										<Error>
-											Почта или пароль указаны неверно.
-											Или учетная запись уже не
-											существует.
-										</Error>
-									</div>
-								)}
-								<Link
-									to="/"
-									style={{
-										paddingBottom: "25px",
-										paddingTop: "10px",
-									}}
-								>
-									Назад
-								</Link>
-							</Card>
+		<div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-180">
+			<div className="max-w-md w-full space-y-8 bg-white p-12 rounded-xl shadow-xl border-1 border border-gray-200 border-opacity-90">
+				<div>
+					<img
+						className="mx-auto h-24 w-auto"
+						src={logoImg}
+						alt="logo"
+						draggable="false"
+					/>
+					<h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Войдите в ваш аккаунт</h2>
+					<p className="mt-2 text-center text-sm text-gray-600">
+						Перейти в панель администратора
+					</p>
+				</div>
+				<form className="mt-8 space-y-6">
+					<div className="rounded-md shadow-sm space-y-6">
+						<div>
+							<label htmlFor="username" className="leading-7 text-base text-gray-600">
+								Почта или пользователь
+							</label>
+							<input
+								id="username"
+								name="email"
+								type="username"
+								autoFocus={true}
+								required
+								className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+								onBlur={(e) => {
+									setUserName(e.target.value);
+								}}
+							/>
+						</div>
+						<div>
+							<label htmlFor="password" className="leading-7 text-base text-gray-600">
+								Пароль
+							</label>
+							<input
+								id="password"
+								name="password"
+								type="password"
+								autoComplete="new-password"
+								required
+								className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+								onKeyPress={(e) => { if (e.key === 'Enter') postLogin() }}
+								onChange={(e) => {
+									setPassword(e.target.value);
+								}}
+							/>
 						</div>
 					</div>
-				</div>
+					{isError && (
+						<div className="max-w-sm rounded overflow-hidden shadow-lg bg-red-200 p-4 bg-opacity-50 mx-auto text-center border border-red-300">
+							<div className="text-xl mb-2">Ошибка</div>
+							<p className="text-gray-700 text-base">
+								Почта или пароль указаны неверно. Или учетная запись уже не существует.
+							</p>
+						</div>
+					)}
+					<div className="pt-4 md:pt-1">
+						<button
+							type="button"
+							className="flex mx-auto text-white bg-purple-500 border-0 py-2 px-8 focus:outline-none hover:bg-purple-600 rounded text-lg shadow-lg transition duration-500"
+							onClick={postLogin}
+						>
+							ВОЙТИ
+							<svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-6 h-6 ml-2" viewBox="0 0 24 24">
+								<path d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path>
+							</svg>
+						</button>
+						<p className="mt-5 text-center text-sm text-gray-600">
+							Так же Вы можете
+						</p>
+					</div>
+					<div className="grid grid-cols-1 md:grid-cols-2">
+						<a
+							className="flex mx-auto text-gray-900 bg-purple-200 py-2 px-8 focus:outline-none hover:bg-purple-300 shadow-lg rounded text-base transition duration-500"
+							href="/"
+						>
+							Вернуться
+						</a>
+						<a
+							className="flex mx-auto text-gray-900 bg-purple-200 py-2 px-8 focus:outline-none hover:bg-purple-300 shadow-lg rounded text-base transition duration-500 mt-4 md:mt-0"
+							href="/signup"
+						>
+							Регистрация
+						</a>
+					</div>
+				</form>
 			</div>
-		</HelmetProvider>
+		</div >
 	);
 }
-
-export default Login;
