@@ -84,7 +84,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                         this.onLayoutChange(layout, layouts)
                     }
                 >
-                    <div key="2" data-grid={{ w: 6, h: 26, x: 0, y: 0, static: true }}>
+                    <div key="2" data-grid={{ w: 6, h: 26, x: 0, y: 0, static: true }} className="shadow-xl border border-purple-400">
                         <MaterialTable
                             title="Продукты, которые необходимо закупить"
                             tableRef={tableRef}
@@ -138,7 +138,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                             }}
                         />
                     </div>
-                    <div key="3" data-grid={{ w: 6, h: 26, x: 6, y: 0, static: true }}>
+                    <div key="3" data-grid={{ w: 6, h: 26, x: 6, y: 0, static: true }} className="shadow-xl border border-purple-400">
                         <MaterialTable
                             title="Все продукты"
                             tableRef={tableRef}
