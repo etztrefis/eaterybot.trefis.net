@@ -29,8 +29,8 @@ export default class ProgressBar extends Component {
 
 	render() {
 		const progressWrapper = {
-			backdropFilter: "blur(5px)",
-			backgroundColor: "#0001",
+			opacity: "0.8",
+			backgroundColor: "rgba(255,255,255,0.1)",
 			height: "5px",
 			zIndex: 101,
 			width: "100%",
@@ -38,7 +38,7 @@ export default class ProgressBar extends Component {
 
 		const progressStyle = {
 			height: "5px",
-			background: "antiquewhite",
+			background: "#9D22E6",
 			width: this.state.scroll,
 		};
 
