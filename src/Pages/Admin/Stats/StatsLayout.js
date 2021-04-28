@@ -120,8 +120,8 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 						this.onLayoutChange(layout, layouts)
 					}
 				>
-					<div key="1" data-grid={{ w: 6, h: 9, x: 0, y: 0 }} >
-					<div className="grid-header-stats">Количество заказов по блюдам</div>
+					<div key="1" data-grid={{ w: 6, h: 9, x: 0, y: 0 }} className="shadow-xl border border-purple-400">
+						<div className="grid-header-stats">Количество заказов по блюдам</div>
 						<ResponsiveContainer>
 							<AreaChart width={930} height={300} data={this.state.dishes}
 								margin={{ top: 40, right: 30, left: 0, bottom: 0 }}>
@@ -139,7 +139,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 							</AreaChart>
 						</ResponsiveContainer>
 					</div>
-					<div key="2" data-grid={{ w: 6, h: 9, x: 0, y: 9 }}>
+					<div key="2" data-grid={{ w: 6, h: 9, x: 0, y: 9 }} className="shadow-xl border border-purple-400">
 						<div className="grid-header-stats">Количество заказов в день</div>
 						<ResponsiveContainer>
 							<AreaChart width={930} height={250} data={this.state.menu}
@@ -158,7 +158,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 							</AreaChart>
 						</ResponsiveContainer>
 					</div>
-					<div key="3" data-grid={{ w: 6, h: 9, x: 0, y: 18 }} >
+					<div key="3" data-grid={{ w: 6, h: 9, x: 0, y: 18 }} className="shadow-xl border border-purple-400">
 						<div className="grid-header-stats">Количество сообщений в день</div>
 						<ResponsiveContainer>
 							<AreaChart width={930} height={300} data={this.state.messages}
@@ -177,7 +177,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 							</AreaChart>
 						</ResponsiveContainer>
 					</div>
-					<div key="4" data-grid={{ w: 6, h: 18, x: 6, y: 1 }}>
+					<div key="4" data-grid={{ w: 6, h: 18, x: 6, y: 1 }} className="shadow-xl border border-purple-400">
 						<MaterialTable
 							title="Действия администраторов"
 							tableRef={tableRef}
@@ -199,9 +199,9 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 								addRowPosition: 'first',
 								draggable: false,
 								paging: true,
-								pageSize: 7,
+								pageSize: 6,
 								emptyRowsWhenPaging: false,
-								pageSizeOptions: [7],
+								pageSizeOptions: [6],
 							}}
 							localization={{
 								header: {
@@ -233,7 +233,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 							}}
 						/>
 					</div>
-					<div key="5" data-grid={{ w: 6, h: 9, x: 18, y: 1 }}>
+					<div key="5" data-grid={{ w: 6, h: 9, x: 18, y: 1 }} className="shadow-xl border border-purple-400">
 						<div className="grid-header-stats">Действия администраторов</div>
 						<ResponsiveContainer>
 							<BarChart

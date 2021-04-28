@@ -24,11 +24,6 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
         this._isMounted = true;
         const headers  = {
             "Authorization": `Bearer ${process.env.REACT_APP_API_KEY}`,
-            "Accept": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "X-Requested-With": "XMLHttpRequest",
-            "Access-Control-Allow-Methods" : "GET,POST,PUT,DELETE,OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
           }
         const server = `${process.env.REACT_APP_API_SERVER}dishes/`;
         const secondServer = `${process.env.REACT_APP_API_SERVER}compositions/`;
@@ -157,7 +152,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                         const server = `${process.env.REACT_APP_API_SERVER}dishes/create/${newData.DishID}/${newData.Name}/${newData.EnergyValue}/${newData.Price}/${username}`;
                                         await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                             .then(response => {
-                                                if (response.status == 200) {
+                                                if (response.status === 200) {
                                                     this.componentDidMount();
                                                 } else {
                                                     console.error('404 error ' + response);
@@ -182,7 +177,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                         const server = `${process.env.REACT_APP_API_SERVER}dishes/update/${newData.DishID}/${newData.Name}/${newData.EnergyValue}/${newData.Price}/${username}`;
                                         await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                             .then(response => {
-                                                if (response.status == 200) {
+                                                if (response.status === 200) {
                                                     this.componentDidMount();
                                                 } else {
                                                     console.error('404 error ' + response);
@@ -206,7 +201,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                     const server = `${process.env.REACT_APP_API_SERVER}dishes/delete/${oldData.DishID}/${username}`;
                                     await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                         .then(response => {
-                                            if (response.status == 200) {
+                                            if (response.status === 200) {
                                                 this.componentDidMount();
                                             } else {
                                                 console.error('404 error ' + response);
@@ -280,7 +275,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                         const server = `${process.env.REACT_APP_API_SERVER}compositions/create/${newData.DishID}/${newData.Name}/${newData.AmountProduct}/${username}`;
                                         await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                             .then(response => {
-                                                if (response.status == 200) {
+                                                if (response.status === 200) {
                                                     this.componentDidMount();
                                                 } else {
                                                     console.error('404 error ' + response);
@@ -305,7 +300,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                         const server = `${process.env.REACT_APP_API_SERVER}compositions/update/${newData.DishID}/${newData.Name}/${newData.AmountProduct}/${username}`;
                                         await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                             .then(response => {
-                                                if (response.status == 200) {
+                                                if (response.status === 200) {
                                                     this.componentDidMount();
                                                 } else {
                                                     console.error('404 error ' + response);
@@ -329,7 +324,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                     const server = `${process.env.REACT_APP_API_SERVER}compositions/delete/${oldData.DishID}/${oldData.Name}/${username}`;
                                     await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                         .then(response => {
-                                            if (response.status == 200) {
+                                            if (response.status === 200) {
                                                 this.componentDidMount();
                                             } else {
                                                 console.error('404 error ' + response);

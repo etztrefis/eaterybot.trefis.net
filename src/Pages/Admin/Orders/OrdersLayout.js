@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import { WidthProvider, Responsive } from 'react-grid-layout';
-import { Button } from 'react-bootstrap';
 import MaterialTable from 'material-table';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 const originalLayouts = getFromLS('layouts') || {};
@@ -81,11 +80,11 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 
 	async handeTableClear() {
 		let username;
-        if(global.localStorage.getItem('tokens') != null){
-            const localArray =global.localStorage.getItem('tokens').split(" ");
-            const stringLocalArray = localArray[1].toString();
-            username = stringLocalArray.substring(0, stringLocalArray.length - 2);
-        }
+		if (global.localStorage.getItem('tokens') != null) {
+			const localArray = global.localStorage.getItem('tokens').split(" ");
+			const stringLocalArray = localArray[1].toString();
+			username = stringLocalArray.substring(0, stringLocalArray.length - 2);
+		}
 		const server = `${process.env.REACT_APP_API_SERVER}menu/destroy/${username}`;
 		await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
 			.then(() => {
@@ -98,11 +97,11 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 
 	render() {
 		let username;
-        if(global.localStorage.getItem('tokens') != null){
-            const localArray =global.localStorage.getItem('tokens').split(" ");
-            const stringLocalArray = localArray[1].toString();
-            username = stringLocalArray.substring(0, stringLocalArray.length - 2);
-        }
+		if (global.localStorage.getItem('tokens') != null) {
+			const localArray = global.localStorage.getItem('tokens').split(" ");
+			const stringLocalArray = localArray[1].toString();
+			username = stringLocalArray.substring(0, stringLocalArray.length - 2);
+		}
 		return (
 			<div>
 				<ResponsiveReactGridLayout
@@ -114,17 +113,24 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 						this.onLayoutChange(layout, layouts)
 					}
 				>
-					<div key="1" data-grid={{ w: 6, h: 5, x: 0, y: 0, static: true }} >
+					<div key="1" data-grid={{ w: 6, h: 5, x: 0, y: 0, static: true }} className="shadow-xl border border-purple-400">
 						<div className="grid-header">Очистить таблицу</div>
 						<div className="grid-text">Данное действие удалит все записи из таблицы меню, его можно использовать только в случе, если вам необходимо создать меню на новую неделю.</div>
 						<div className="grid-text" style={{ paddingTop: "5px" }}>Данные <b style={{ color: "red" }}>НЕ БУДУТ СОХРАНЕНЫ</b>, их уже никак не вернуть.</div>
 						<div style={{ paddingLeft: "24px", paddingTop: "10px" }}>
-							<Button variant="danger" onClick={this.handeTableClear}>
-								Очистить
-							</Button>
+							<button
+								type="submit"
+								className="flex text-white bg-purple-500 border-0 py-2 px-8 focus:outline-none hover:bg-purple-600 rounded text-lg shadow-lg transition duration-500"
+								onClick={this.handeTableClear}
+							>
+								Изменить
+								<svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-6 h-6 ml-2" viewBox="0 0 24 24">
+									<path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+								</svg>
+							</button>
 						</div>
 					</div>
-					<div key="2" data-grid={{ w: 6, h: 23, x: 0, y: 0, static: true }}>
+					<div key="2" data-grid={{ w: 6, h: 23, x: 0, y: 0, static: true }} className="shadow-xl border border-purple-400">
 						<MaterialTable
 							title="Меню"
 							tableRef={tableRef}
@@ -176,7 +182,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 										const server = `${process.env.REACT_APP_API_SERVER}menu/create/${newData.DayOfWeek}/${newData.Name}/${username}`;
 										await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
 											.then(response => {
-												if (response.status == 200) {
+												if (response.status === 200) {
 													this.componentDidMount();
 												} else {
 													console.error('404 error ' + response);
@@ -200,7 +206,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 									const server = `${process.env.REACT_APP_API_SERVER}menu/delete/${oldData.DayOfWeek}/${oldData.Name}/${username}`;
 									await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
 										.then(response => {
-											if (response.status == 200) {
+											if (response.status === 200) {
 												this.componentDidMount();
 											} else {
 												console.error('404 error ' + response);
@@ -221,7 +227,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 							}
 						/>
 					</div>
-					<div key="3" data-grid={{ w: 6, h: 28, x: 6, y: 0, static: true }}>
+					<div key="3" data-grid={{ w: 6, h: 28, x: 6, y: 0, static: true }} className="shadow-xl border border-purple-400">
 						<MaterialTable
 							title="Заказы"
 							tableRef={tableRef}
@@ -237,9 +243,9 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 							options={{
 								draggable: false,
 								paging: true,
-								pageSize: 15,
+								pageSize: 11,
 								emptyRowsWhenPaging: false,
-								pageSizeOptions: [15, 30, 60, 90],
+								pageSizeOptions: [11],
 								addRowPosition: 'first'
 							}}
 							localization={{
@@ -275,7 +281,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 									const server = `${process.env.REACT_APP_API_SERVER}orders/update/${newData.ID}/${newData.State}/${username}`;
 									await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
 										.then(response => {
-											if (response.status == 200) {
+											if (response.status === 200) {
 												this.componentDidMount();
 											} else {
 												console.error('404 error ' + response);

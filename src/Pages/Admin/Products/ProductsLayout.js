@@ -191,7 +191,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                         const server = `${process.env.REACT_APP_API_SERVER}products/create/${newData.Name}/${newData.Amount}/${newData.MeasurmentUnits}/${username}`;
                                         await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                             .then(response => {
-                                                if (response.status == 200) {
+                                                if (response.status === 200) {
                                                     this.componentDidMount();
                                                 } else {
                                                     console.error('404 error ' + response);
@@ -215,7 +215,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                     const server = `${process.env.REACT_APP_API_SERVER}products/update/${newData.ProductID}/${newData.Name}/${newData.Amount}/${newData.MeasurmentUnits}/${username}`;
                                     await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                         .then(response => {
-                                            if (response.status == 200) {
+                                            if (response.status === 200) {
                                                 this.componentDidMount();
                                             } else {
                                                 console.error('404 error ' + response);
@@ -236,7 +236,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                     const server = `${process.env.REACT_APP_API_SERVER}products/delete/${oldData.ProductID}/${username}`;
                                     await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                         .then(response => {
-                                            if (response.status == 200) {
+                                            if (response.status === 200) {
                                                 this.componentDidMount();
                                             } else {
                                                 console.error('404 error ' + response);

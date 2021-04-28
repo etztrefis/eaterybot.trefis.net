@@ -34,16 +34,6 @@
   padding-left: 24px;
 }
 
-.adminpage-main {
-  height: 100vh;
-  background: #5a02b4;
-}
-
-.App {
-  height: 100vh;
-  background: #5a02b4;
-}
-
 .buttons-menu {
   position: absolute;
   top: 0;

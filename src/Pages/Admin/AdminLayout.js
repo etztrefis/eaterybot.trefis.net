@@ -1,13 +1,6 @@
 import React from 'react';
 import { WidthProvider, Responsive } from 'react-grid-layout';
-import {
-    Form,
-    Input,
-    Text,
-    Error,
-} from "../../Components/AuthForm/AuthForm";
 import cryptJS from "crypto-js";
-import { Button } from "react-bootstrap";
 import axios from 'axios';
 import MaterialTable from 'material-table';
 const tableRef = React.createRef();
@@ -49,7 +42,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
         const server = `${process.env.REACT_APP_API_SERVER}admins/`;
         const secondServer = `${process.env.REACT_APP_API_SERVER}codes/`;
         if (global.localStorage.getItem('tokens') !== null) {
-            if (global.localStorage.getItem('tokens').charAt(global.localStorage.getItem('tokens').length - 2) == 1) {
+            if (global.localStorage.getItem('tokens').charAt(global.localStorage.getItem('tokens').length - 2) === 1) {
                 await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                     .then(response => {
                         if (this._isMounted) {
@@ -106,7 +99,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
         const config = { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } };
         await axios.get(server, config)
             .then((apiResponse) => {
-                if (apiResponse.status == 200) {
+                if (apiResponse.status === 200) {
                     localStorage.removeItem('tokens');
                     window.location.reload();
                 } else {
@@ -134,7 +127,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
     }
 
     async handleSubmit() {
-        if (this.state.email == '') {
+        if (this.state.email === '') {
             if (this.state.newPassword !== '' || this.state.oldPassword !== '') {
                 const reg = new RegExp(
                     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
@@ -167,7 +160,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                     const config = { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } };
                     await axios.get(server, config)
                         .then((apiResponse) => {
-                            if (apiResponse.status == 200) {
+                            if (apiResponse.status === 200) {
                                 localStorage.removeItem('tokens');
                                 window.location.reload();
                             } else {
@@ -179,7 +172,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
             } else {
                 alert(`Все поля должны быть заполнены.`);
             }
-        } else if (this.state.email != '') {
+        } else if (this.state.email !== '') {
             const localArray = global.localStorage.getItem('tokens').split(" ");
             const stringLocalArray = localArray[1].toString();
             const username = stringLocalArray.substring(0, stringLocalArray.length - 2);
@@ -188,7 +181,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
             const config = { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } };
             await axios.get(server, config)
                 .then((apiResponse) => {
-                    if (apiResponse.status == 200) {
+                    if (apiResponse.status === 200) {
                         localStorage.removeItem('tokens');
                         window.location.reload();
                     } else {
@@ -225,85 +218,109 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                         this.onLayoutChange(layout, layouts)
                     }
                 >
-                    <div key="1" data-grid={{ w: 6, h: 12, x: 0, y: 0 }}>
-                        <div className="grid-header">Персональные данные</div>
-                        <div className="grid-text">Эти данные используются только при распечатывании меню и прочих документов. </div>
-                        <div className="grid-text">Имя: </div>
-                        <Form>
-                            <Input
-                                type="text"
+                    <div key="1" data-grid={{ w: 6, h: 11, x: 0, y: 0 }} className="shadow-xl border border-purple-400">
+                        <div className="p-4 rounded-lg bg-white">
+                            <h2 className="text-xl text-gray-900 font-medium title-font mb-2">Персональные данные</h2>
+                            <p className="leading-relaxed text-base">Эти данные используются только при распечатывании меню и прочих документов.</p>
+                        </div>
+                        <form className="px-5">
+                            <label htmlFor="name" className="leading-7 text-base text-gray-900">Имя</label>
+                            <input
                                 placeholder={name}
                                 name="name"
+                                type="text"
+                                className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm mb-4"
                                 onBlur={this.handleChange}
                             />
-                            <div className="grid-text">Отчество (Фамилия): </div>
-                            <Input
-                                type="text"
+                            <label htmlFor="surname" className="leading-7 text-base text-gray-900">Отчество (Фамилия)</label>
+                            <input
                                 placeholder={surname}
                                 name="surname"
+                                type="text"
+                                className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm mb-4"
                                 onBlur={this.handleChange}
                             />
-                            <div className="grid-text">Должность: </div>
-                            <Input
-                                type="text"
+                            <label htmlFor="post" className="leading-7 text-base text-gray-900">Должность</label>
+                            <input
                                 placeholder={post}
                                 name="post"
+                                type="text"
+                                className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm mb-4"
                                 onBlur={this.handleChange}
                             />
-                            <Button variant='success' style={{ width: "30%", marginLeft: "10px", height: "20%", marginTop: "10px" }} type="submit" onClick={this.handleDataSubmit}>
+                            <button
+                                type="button"
+                                className="flex text-white bg-purple-500 border-0 py-2 px-8 focus:outline-none hover:bg-purple-600 rounded text-lg shadow-lg transition duration-500"
+                                onClick={this.handleDataSubmit}
+                            >
                                 Изменить
-                            </Button>
-                        </Form>
+                                <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-6 h-6 ml-2" viewBox="0 0 24 24">
+                                    <path d="M10 21h7a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v11m0 5l4.879-4.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242z"></path>
+                                </svg>
+                            </button>
+                        </form>
                     </div>
-                    <div key="2" data-grid={{ w: 6, h: 12, x: 0, y: 12 }}>
-                        <div className="grid-header">Смена пароля</div>
-                        <div className="grid-text">Настоящий пароль: </div>
-                        <Form>
-                            <Input
-                                type="password"
+                    <div key="2" data-grid={{ w: 6, h: 8, x: 0, y: 11 }} className="shadow-xl border border-purple-400">
+                        <div className="p-4 rounded-lg bg-white">
+                            <h2 className="text-xl text-gray-900 font-medium title-font mb-2">Смена пароля</h2>
+                        </div>
+                        <form className="px-5">
+                            <label htmlFor="oldPassword" className="leading-7 text-base text-gray-900">Старый пароль</label>
+                            <input
                                 name="oldPassword"
-                                onBlur={this.handleChange}
-                            />
-                            <div className="grid-text">Новый пароль: </div>
-                            <Input
                                 type="password"
-                                name="newPassword"
+                                autoComplete="old-password"
+                                required
+                                className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm mb-4"
                                 onBlur={this.handleChange}
                             />
-                            <Button variant='success' style={{ width: "30%", marginLeft: "10px", height: "20%" }} type="submit" onClick={this.handleSubmit}>
+                            <label htmlFor="newPassword" className="leading-7 text-base text-gray-900">Новый пароль</label>
+                            <input
+                                name="newPassword"
+                                type="password"
+                                autoComplete="new-password"
+                                required
+                                className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm mb-4"
+                                onBlur={this.handleChange}
+                            />
+                            <button
+                                type="submit"
+                                className="flex text-white bg-purple-500 border-0 py-2 px-8 focus:outline-none hover:bg-purple-600 rounded text-lg shadow-lg transition duration-500"
+                                onClick={this.handleSubmit}
+                            >
                                 Изменить
-                            </Button>
-                            <div className="error-wrapper" style={{ marginLeft: "10px", width: "90%", marginTop: "20px" }}>
-                                <Error>
-                                    • Минимум 8 символов.
-                                    <br />
-                                    • Хотя бы одна цифра.
-									<br />
-									• Хотя бы один специальный символ.
-                                    <br />
-                                    • Хотя бы один символ в верхнем регистре.
-									<br />
-									• Хотя бы один символ в нижнем
-									регистре.
-                                </Error>
-                            </div>
-                        </Form>
+                                <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-6 h-6 ml-2" viewBox="0 0 24 24">
+                                    <path d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path>
+                                </svg>
+                            </button>
+                        </form>
                     </div>
-                    <div key="3" data-grid={{ w: 6, h: 6, x: 6, y: 22 }}>
-                        <span className="text"><div className="grid-header">Смена почты</div>
-                            <div className="grid-text">Укажите новую почту: </div>
-                            <Form>
-                                <Input
-                                    type="text"
-                                    name="email"
-                                    onBlur={this.handleChange}
-                                />
-                                <Button variant='success' style={{ width: "30%", marginLeft: "10px", height: "20%", marginTop: "5px" }} type="submit" onClick={this.handleSubmit} >
-                                    Изменить
-                            </Button>
-                            </Form></span>
+                    <div key="3" data-grid={{ w: 6, h: 6, x: 0, y: 19 }} className="shadow-xl border border-purple-400">
+                        <div className="p-4 rounded-lg bg-white">
+                            <h2 className="text-xl text-gray-900 font-medium title-font mb-2">Смена почты</h2>
+                        </div>
+                        <form className="px-5">
+                            <label htmlFor="newPassword" className="leading-7 text-base text-gray-900">Новая почта</label>
+                            <input
+                                name="email"
+                                type="text"
+                                required
+                                className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm mb-4"
+                                onBlur={this.handleChange}
+                            />
+                            <button
+                                type="submit"
+                                className="flex text-white bg-purple-500 border-0 py-2 px-8 focus:outline-none hover:bg-purple-600 rounded text-lg shadow-lg transition duration-500"
+                                onClick={this.handleSubmit}
+                            >
+                                Изменить
+                                <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-6 h-6 ml-2" viewBox="0 0 24 24">
+                                    <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </button>
+                        </form>
                     </div>
-                    <div key="4" data-grid={{ w: 6, h: 11, x: 6, y: 0 }}>
+                    <div key="4" data-grid={{ w: 6, h: 11, x: 6, y: 0 }} className="shadow-xl border border-purple-400">
                         <span className="text">
                             <MaterialTable
                                 title="Администраторы"
@@ -356,7 +373,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                         const server = `${process.env.REACT_APP_API_SERVER}admins/delete/${oldData.Login}/${username}`;
                                         await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
                                             .then(response => {
-                                                if (response.status == 200) {
+                                                if (response.status === 200) {
                                                     this.componentDidMount();
                                                 } else {
                                                     console.error('404 error ' + response);
@@ -377,7 +394,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
                                 }
                             /></span>
                     </div>
-                    <div key="5" data-grid={{ w: 6, h: 11, x: 6, y: 12 }}>
+                    <div key="5" data-grid={{ w: 6, h: 11, x: 6, y: 12 }} className="shadow-xl border border-purple-400">
                         <span className="text">
                             <MaterialTable
                                 title="Коды регистрации"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import axios from "axios";
 import {
 	Document,
@@ -141,11 +141,11 @@ export default class MyDocument extends React.Component {
 			})
 		}
 
-		const server = `${process.env.REACT_APP_API_SERVER}menu/day/${this.state.dayOfWeek == 0 ? 1 : this.state.dayOfWeek}`;
+		const server = `${process.env.REACT_APP_API_SERVER}menu/day/${this.state.dayOfWeek === 0 ? 1 : this.state.dayOfWeek}`;
 		const config = { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } };
 		await axios.get(server, config)
 			.then((apiResponse) => {
-				if (apiResponse.status == 200) {
+				if (apiResponse.status === 200) {
 					let rows = [
 						JSON.stringify(apiResponse.data.message[0].Name),
 						JSON.stringify(apiResponse.data.message[0].Price),
