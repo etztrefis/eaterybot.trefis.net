@@ -78,7 +78,7 @@ function Sidebar(props) {
 			onClick={toggleDrawer(anchor, false)}
 			onKeyDown={toggleDrawer(anchor, false)}
 		>
-			<img src={process.env.PUBLIC_URL + '/favicon.png'} width="64px" style={{ width: "64px", height: "64px", margin: "0 auto", marginTop: "20px", marginBottom: "20px", display: "block" }} />
+			<img src={process.env.PUBLIC_URL + '/favicon.png'} width="64px" style={{ width: "64px", height: "64px", margin: "0 auto", marginTop: "20px", marginBottom: "20px", display: "block" }} alt="logo"/>
 			<Divider classes={{ root: classes.upper_divider }} />
 			<List>
 				<ListItem button onClick={() => history.push("/admin")}>
