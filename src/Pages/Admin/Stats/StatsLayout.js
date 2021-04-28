@@ -1,12 +1,12 @@
 import React from 'react';
 import { WidthProvider, Responsive } from 'react-grid-layout';
-import { Button } from 'react-bootstrap';
+import axios from 'axios';
+import { XAxis, YAxis, Area, Tooltip, CartesianGrid, AreaChart, ResponsiveContainer, BarChart, Bar } from 'recharts';
 import MaterialTable from 'material-table';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 const originalLayouts = getFromLS('layouts') || {};
 const tableRef = React.createRef();
-import axios from 'axios';
-import { XAxis, YAxis, Area, Tooltip, CartesianGrid, AreaChart, ResponsiveContainer, BarChart, Bar } from 'recharts';
+
 
 export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 	_isMounted = false;

@@ -7,12 +7,12 @@ import './Admin.css';
 export default class AdminPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {layout: []};
+        this.state = { layout: [] };
         this.onLayoutChange = this.onLayoutChange.bind(this);
     }
 
     onLayoutChange(layout) {
-        this.setState({layout: layout});
+        this.setState({ layout: layout });
     }
 
     render() {
@@ -27,4 +27,5 @@ export default class AdminPage extends React.Component {
 
 const contentDiv = document.getElementById('root');
 const gridProps = window.gridProps || {};
+
 ReactDOM.render(React.createElement(AdminLayout, gridProps), contentDiv);

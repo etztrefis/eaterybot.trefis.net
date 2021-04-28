@@ -1,11 +1,11 @@
 import React from 'react';
+import axios from 'axios';
 import { WidthProvider, Responsive } from 'react-grid-layout';
 import { Button } from 'react-bootstrap';
 import MaterialTable from 'material-table';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 const originalLayouts = getFromLS('layouts') || {};
 const tableRef = React.createRef();
-import axios from 'axios';
 
 export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 	_isMounted = false;

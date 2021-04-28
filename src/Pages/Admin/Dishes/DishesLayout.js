@@ -1,10 +1,10 @@
 import React from 'react';
+import axios from 'axios';
 import { WidthProvider, Responsive } from 'react-grid-layout';
 import MaterialTable from 'material-table';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 const originalLayouts = getFromLS('layouts') || {};
 const tableRef = React.createRef();
-import axios from 'axios';
 
 export default class ResponsiveLocalStorageLayout extends React.PureComponent {
     _isMounted = false;
@@ -22,10 +22,18 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 
     async componentDidMount() {
         this._isMounted = true;
+        const headers  = {
+            "Authorization": `Bearer ${process.env.REACT_APP_API_KEY}`,
+            "Accept": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "X-Requested-With": "XMLHttpRequest",
+            "Access-Control-Allow-Methods" : "GET,POST,PUT,DELETE,OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+          }
         const server = `${process.env.REACT_APP_API_SERVER}dishes/`;
         const secondServer = `${process.env.REACT_APP_API_SERVER}compositions/`;
         const thirdServer = `${process.env.REACT_APP_API_SERVER}products/lookup/`
-        await axios.get(server, { headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` } })
+        await axios.get(server, { headers })
             .then(response => {
                 if (this._isMounted) {
                     this.setState({
