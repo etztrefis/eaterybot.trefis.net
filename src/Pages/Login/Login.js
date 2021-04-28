@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useAuth } from "../../context/auth.js";
 import "./Login.css";
-import logoImg from "../../img/logo.png";
+import logoImg from "../../assets/logo.png";
 import {
 	Card,
 	Logo,
@@ -110,7 +110,7 @@ function Login(props) {
 										onChange={(e) => {
 											setUserName(e.target.value);
 										}}
-										onKeyPress={(e) => {e.key === 'Enter' ? postLogin() : null}}
+										onKeyPress={(e) => {if(e.key === 'Enter') postLogin()}}
 										placeholder="email"
 										autoFocus={true}
 									/>
@@ -125,7 +125,7 @@ function Login(props) {
 											onChange={(e) => {
 												setPassword(e.target.value);
 											}}
-											onKeyPress={(e) => {e.key === 'Enter' ? postLogin() : null}}
+											onKeyPress={(e) => {if(e.key === 'Enter') postLogin()}}
 											placeholder="password"
 										/>
 										<i onClick={togglePasswordVisiblity}>

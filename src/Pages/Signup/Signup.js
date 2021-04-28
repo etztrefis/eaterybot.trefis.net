@@ -4,7 +4,7 @@ import { HelmetProvider } from "react-helmet-async";
 import axios from "axios";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import logoImg from "../../img/logo.png";
+import logoImg from "../../assets/logo.png";
 import {
 	Card,
 	Logo,
