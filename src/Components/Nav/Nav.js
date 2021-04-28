@@ -27,10 +27,6 @@ const solutions = [
 	},
 ]
 
-function classNames(...classes) {
-	return classes.filter(Boolean).join(' ')
-}
-
 export default function NavBar() {
 	const scrollTop = () => {
 		window.scrollTo({
@@ -39,18 +35,18 @@ export default function NavBar() {
 		});
 	}
 	return (
-		<Popover className="text-gray-600 body-font sticky top-0 z-100 backdrop-filter backdrop-blur-lg bg-white bg-opacity-50 border-b border-gray-900 border-opacity-10">
+		<Popover className="text-gray-600 body-font sticky top-0 z-100 backdrop-filter backdrop-blur-lg bg-white bg-opacity-50 border-b border-gray-900 border-opacity-10" style={{zIndex:"100000"}}>
 			{({ open }) => (
 				<>
 					<ProgressBar />
 					<div className="max-w-7xl mx-auto px-4 sm:px-6">
 						<div className="flex justify-between items-center border-b-1 border-black py-3 md:justify-start md:space-x-10">
 							<div className="flex justify-start lg:w-0 lg:flex-1">
-								<a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0" href="/">
+								<a className="flex title-font font-medium items-center text-gray-900 mb-2 md:mb-0" href="/">
 									<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
 									</svg>
-									<span className="ml-3 text-xl">Eatery Bot</span>
+									<span className="ml-3 text-xl mt-1 md:mt-0">Eatery Bot</span>
 								</a>
 							</div>
 							<div className="-mr-2 -my-2 md:hidden">
@@ -60,6 +56,7 @@ export default function NavBar() {
 								</Popover.Button>
 							</div>
 							<Popover.Group as="nav" className="hidden md:flex space-x-10">
+								{/* eslint-disable-next-line*/}
 								<a onClick={scrollTop} className="text-base font-medium text-gray-500 hover:text-gray-900 cursor-pointer">
 									Наверх
 								</a>
