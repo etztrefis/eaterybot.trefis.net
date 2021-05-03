@@ -31,8 +31,8 @@ export default function BodyComponent() {
 	return (
 		<>
 			<Slide bottom cascade>
-				<section className="text-gray-600 body-font pb-12">
-					<div className="container px-5 mx-auto">
+				<section className="text-gray-600 body-font">
+					<div className="container mx-auto">
 						<div className="flex flex-wrap -m-4">
 							<div className="xl:w-1/3 md:w-1/2 p-4">
 								<div className="p-6 rounded-lg bg-white">
@@ -86,7 +86,7 @@ export default function BodyComponent() {
 										</svg>
 									</div>
 									<h2 className="text-lg text-gray-900 font-medium title-font mb-2">Скорость</h2>
-									<p className="leading-relaxed text-base">Гарантируем быстрый отклик нашей службы поддержки, мы предоставляем достоверную и доступную информацию.</p>
+									<p className="leading-relaxed text-base">Гарантируем быстрый отклик службы поддержки, мы предоставляем достоверную и доступную информацию.</p>
 								</div>
 							</div>
 							<div className="xl:w-1/3 md:w-1/2 p-4">
